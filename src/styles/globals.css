@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 14% 95%;
+    --foreground: 230 32% 13%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 35% 13%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 35% 13%;
+    --primary: 231 84% 57%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 40% 97%;
+    --secondary-foreground: 230 32% 13%;
+    --muted: 228 32% 96%;
+    --muted-foreground: 220 14% 43%;
+    --accent: 231 84% 57%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 46%;
+    --border: 225 24% 90%;
+    --input: 225 24% 90%;
+    --ring: 231 84% 57%;
+    --radius: 0.625rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    font-size: 17px;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bricolage), var(--font-source-sans), sans-serif !important;
+    letter-spacing: 0;
+    overflow-wrap: anywhere;
+  }
+  a,
+  button,
+  input,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+  .content-shell {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-10;
+  }
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[0.18em] text-indigo-600;
+  }
+  .button {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-5 text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2;
+  }
+  .button-primary {
+    @apply bg-indigo-600 text-white hover:bg-indigo-700;
+  }
+  .button-accent {
+    @apply bg-indigo-600 text-white hover:bg-indigo-700;
+  }
+  .button-muted {
+    @apply border border-border bg-white text-slate-800 hover:bg-indigo-50;
+  }
+  .tag {
+    @apply inline-flex items-center rounded-full border border-border bg-white px-2.5 py-1 text-xs font-semibold text-slate-600;
+  }
+  .section-label {
+    @apply flex flex-wrap items-end justify-between gap-4 border-b border-border pb-4;
+  }
+  .prose-content h2 {
+    @apply mt-10 text-2xl font-black tracking-tight;
+  }
+  .prose-content {
+    @apply min-w-0 rounded-2xl border border-slate-300 bg-white p-6 sm:p-8 lg:p-10;
+  }
+  .prose-content > h2:first-of-type {
+    @apply mt-0;
+  }
+  .prose-content h3 {
+    @apply mt-7 text-lg font-bold;
+  }
+  .prose-content p {
+    @apply mt-3 leading-7 text-muted-foreground;
+  }
+  .prose-content ul {
+    @apply mt-4 list-disc space-y-2 pl-5 leading-7 text-muted-foreground;
+  }
+  .guide-prose h2 {
+    @apply mt-7;
+  }
+  .guide-prose p {
+    @apply mt-2;
+  }
+  .guide-prose ul {
+    @apply mt-3 space-y-1.5;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.public-main .mx-auto.max-w-7xl {
+  padding-inline: 1.5rem !important;
+}
+
+.public-main .mx-auto.max-w-4xl {
+  padding-inline: 1.5rem !important;
+}
+
+.public-main .border-slate-200 {
+  border-color: rgb(203 213 225) !important;
+}
+
+.public-main .border-border {
+  border-color: hsl(225 24% 82%) !important;
+}
+
+@media (min-width: 640px) {
+  .public-main .mx-auto.max-w-7xl,
+  .public-main .mx-auto.max-w-4xl {
+    padding-inline: 2.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .public-main .mx-auto.max-w-7xl,
+  .public-main .mx-auto.max-w-4xl {
+    padding-inline: 3rem !important;
+  }
+}
