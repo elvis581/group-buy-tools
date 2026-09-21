@@ -249,6 +249,7 @@ export function ToolCard({
   tool,
   link = true,
 }: { tool: Tool; link?: boolean }) {
+  const hasStandalonePage = link || tool.slug === "spybox";
   return (
     <article className="flex min-h-[250px] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
       <div className="flex items-start justify-between gap-3">
@@ -260,7 +261,7 @@ export function ToolCard({
         </span>
       </div>
       <h2 className="mt-5 text-xl font-black text-slate-950">
-        {link ? (
+        {hasStandalonePage ? (
           <Link href={`/tools/${tool.slug}`} className="hover:text-indigo-800">
             {tool.name}
           </Link>
@@ -281,12 +282,12 @@ export function ToolCard({
         <p className="text-xs text-slate-500">
           Last verified: {formatDate(tool.lastVerified)}
         </p>
-        {link ? (
+        {hasStandalonePage ? (
           <Link
             href={`/tools/${tool.slug}`}
             className="mt-2 inline-flex text-sm font-bold text-indigo-800"
           >
-            Explore tool{" "}
+            {tool.slug === "spybox" ? "View SpyBox tool page" : "Explore tool"}{" "}
             <span className="ml-1" aria-hidden="true">
               →
             </span>
