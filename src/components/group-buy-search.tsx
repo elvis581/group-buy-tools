@@ -3,7 +3,6 @@
 import { trackGroupBuyEvent } from "@/components/group-buy-analytics";
 import type { Tool } from "@/data/group-buy-tools";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 
 export function GroupBuySearch({
@@ -13,7 +12,6 @@ export function GroupBuySearch({
   tools: Tool[];
   initialQuery?: string;
 }) {
-  const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
   useEffect(() => setQuery(initialQuery), [initialQuery]);
   const results = useMemo(
@@ -26,12 +24,8 @@ export function GroupBuySearch({
     [query, tools],
   );
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
     const trimmedQuery = query.trim();
     trackGroupBuyEvent("tool_search_submit", { query: trimmedQuery });
-    router.push(
-      trimmedQuery ? `/tools?q=${encodeURIComponent(trimmedQuery)}` : "/tools",
-    );
   }
   return (
     <div className="relative mx-auto mt-8 min-w-0 w-full max-w-2xl">
@@ -39,11 +33,14 @@ export function GroupBuySearch({
         Search a tool
       </label>
       <form
+        action="/tools"
+        method="get"
         onSubmit={handleSubmit}
         className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-300 bg-white p-2 shadow-sm focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100"
       >
         <input
           id="tool-search"
+          name="q"
           value={query}
           onChange={(event) => {
             setQuery(event.target.value);
