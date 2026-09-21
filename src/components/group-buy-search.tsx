@@ -60,7 +60,7 @@ export function GroupBuySearch({
               <Link
                 key={tool.slug}
                 href={
-                  tool.slug === "spybox" || tool.slug === "flikover"
+                  tool.slug === "flikover"
                     ? "/spybox-alternative"
                     : `/tools/${tool.slug}`
                 }

@@ -94,7 +94,7 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
               <ToolCard
                 key={tool.slug}
                 tool={tool}
-                link={!["spybox", "flikover"].includes(tool.slug)}
+                link={tool.slug !== "flikover"}
               />
             ))}
           </div>
@@ -154,7 +154,7 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
         data={itemListSchema(
           "AI, Ecommerce & Marketing Tools",
           tools
-            .filter((tool) => !["spybox", "flikover"].includes(tool.slug))
+            .filter((tool) => tool.slug !== "flikover")
             .map((tool) => ({
               name: tool.name,
               path: `/tools/${tool.slug}`,

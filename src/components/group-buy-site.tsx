@@ -294,7 +294,7 @@ export function ToolCard({
         ) : (
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <span className="text-xs font-semibold text-slate-500">
-              Comparison reference · no standalone V1 page
+              Comparison reference · provider details need verification
             </span>
             {tool.affiliateUrl && (
               <a

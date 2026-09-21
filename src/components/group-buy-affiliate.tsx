@@ -11,6 +11,7 @@ export function AffiliateCTA({
   toolName,
 }: { pageType: string; pageSlug: string; toolName?: string }) {
   const destination = spyboxAffiliateUrl;
+  const isSpyBoxPage = toolName === "SpyBox";
   return (
     <aside className="my-10 flex flex-col justify-between gap-5 rounded-2xl border border-indigo-200 bg-indigo-50 p-6 sm:flex-row sm:items-center">
       <div>
@@ -19,12 +20,16 @@ export function AffiliateCTA({
         </p>
         <h2 className="mt-2 text-xl font-black text-slate-950">
           {toolName
-            ? `Check ${toolName} availability on SpyBox`
+            ? isSpyBoxPage
+              ? "Open the current SpyBox offer"
+              : `Check ${toolName} availability on SpyBox`
             : "Access the best ecommerce and AI tools in one subscription"}
         </h2>
         <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">
           {toolName
-            ? `SpyBox lists ${toolName} in its public tools directory, checked ${formatDate(spyboxDirectory.lastChecked)}. Verify the current access terms before purchase. `
+            ? isSpyBoxPage
+              ? `Review the current SpyBox library and pricing before purchase. Offer checked ${formatDate(spyboxDirectory.lastChecked)}. `
+              : `SpyBox lists ${toolName} in its public tools directory, checked ${formatDate(spyboxDirectory.lastChecked)}. Verify the current access terms before purchase. `
             : `SpyBox advertises $8,000+ in monthly savings compared with individual subscriptions. Savings vary by the tools and plans you would otherwise buy; provider claim checked ${formatDate(spyboxDirectory.lastChecked)}. `}
           Use promo code{" "}
           <code className="rounded border border-indigo-200 bg-white px-1.5 py-0.5 font-black text-indigo-900">
@@ -56,7 +61,11 @@ export function AffiliateCTA({
           })
         }
       >
-        {toolName ? `Check ${toolName} availability` : "Claim 10% off"}{" "}
+        {toolName
+          ? isSpyBoxPage
+            ? "Open SpyBox offer"
+            : `Check ${toolName} availability`
+          : "Claim 10% off"}{" "}
         <span className="ml-2" aria-hidden="true">
           ↗
         </span>

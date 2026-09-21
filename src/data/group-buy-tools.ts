@@ -261,7 +261,6 @@ export const tools: Tool[] = [
     ],
     alternatives: ["Flikover"],
     competitors: ["Flikover"],
-    spyboxIncluded: true,
     lastVerified: "2026-09-20",
   },
   {
@@ -314,7 +313,7 @@ export function formatPricingLabel(tool: Tool) {
 }
 
 export const primaryTools = tools.filter((tool) =>
-  ["minea", "kalodata", "pipiads", "claude"].includes(tool.slug),
+  ["minea", "kalodata", "pipiads", "claude", "spybox"].includes(tool.slug),
 );
 
 export type Guide = {
@@ -475,6 +474,7 @@ export const coreSeoPaths = [
   "/tools/kalodata",
   "/tools/pipiads",
   "/tools/claude",
+  "/tools/spybox",
   ...guides.map((guide) => `/${guide.slug}`),
   "/minea-alternative",
   "/spybox-alternative",

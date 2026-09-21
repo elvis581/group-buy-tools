@@ -15,12 +15,12 @@ const trustPaths = [
 const errors: string[] = [];
 const slugs = new Set(tools.map((tool) => tool.slug));
 
-if (coreSeoPaths.length !== 16)
-  errors.push(`Expected 16 core SEO paths, found ${coreSeoPaths.length}`);
+if (coreSeoPaths.length !== 17)
+  errors.push(`Expected 17 core SEO paths, found ${coreSeoPaths.length}`);
 if (guides.length !== 4)
   errors.push(`Expected 4 group-buy guides, found ${guides.length}`);
-if (primaryTools.length !== 4)
-  errors.push(`Expected 4 standalone tool pages, found ${primaryTools.length}`);
+if (primaryTools.length !== 5)
+  errors.push(`Expected 5 standalone tool pages, found ${primaryTools.length}`);
 if (slugs.size !== tools.length) errors.push("Tool slugs are not unique");
 for (const tool of tools) {
   if (!tool.name || !tool.slug || !tool.shortDescription)
@@ -33,7 +33,7 @@ for (const tool of tools) {
       errors.push(`${tool.slug}: unknown alternative ${alternative}`);
   }
 }
-if (new Set([...coreSeoPaths, ...trustPaths]).size !== 21)
+if (new Set([...coreSeoPaths, ...trustPaths]).size !== 22)
   errors.push("Sitemap route set is not unique");
 
 if (errors.length) {

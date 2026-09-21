@@ -238,7 +238,9 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
                     ? "/pipiads-group-buy"
                     : tool.slug === "claude"
                       ? "/claude-group-buy"
-                      : "/alternatives"
+                      : tool.slug === "spybox"
+                        ? "/spybox-review"
+                        : "/alternatives"
             }
             className="mt-4 block text-sm font-bold text-indigo-800"
           >
@@ -270,10 +272,22 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
                     { href: "/tools/pipiads", label: "PiPiADS" },
                     { href: "/tools/kalodata", label: "Kalodata" },
                   ]
-                : [
-                    { href: "/deals", label: "Group Buy Guides" },
-                    { href: "/alternatives", label: "Cheaper Alternatives" },
-                  ]
+                : tool.slug === "spybox"
+                  ? [
+                      { href: "/spybox-review", label: "SpyBox Review" },
+                      {
+                        href: "/spybox-alternative",
+                        label: "SpyBox Alternatives",
+                      },
+                      {
+                        href: "/spybox-vs-flikover",
+                        label: "SpyBox vs Flikover",
+                      },
+                    ]
+                  : [
+                      { href: "/deals", label: "Group Buy Guides" },
+                      { href: "/alternatives", label: "Cheaper Alternatives" },
+                    ]
             }
           />
         </div>
