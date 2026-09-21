@@ -41,17 +41,27 @@ const faqs = [
       "Yes. An official subscription has a different account and support model from third-party shared access. Check ownership, privacy, usage limits and interruption handling as separate AI & Ecommerce Tools decisions.",
   },
 ];
-export function generateMetadata({
-  searchParams,
-}: {
+type ToolsPageProps = {
   searchParams?: Record<string, string | string[] | undefined>;
-}) {
+};
+export function generateMetadata({ searchParams }: ToolsPageProps) {
   return constructMetadata({
     ...pageMetadata,
     noIndex: Object.keys(searchParams || {}).length > 0,
   });
 }
-export default function ToolsPage() {
+export default function ToolsPage({ searchParams }: ToolsPageProps) {
+  const rawQuery = searchParams?.q;
+  const query =
+    (Array.isArray(rawQuery) ? rawQuery[0] : rawQuery)?.trim() || "";
+  const normalizedQuery = query.toLowerCase();
+  const filteredTools = normalizedQuery
+    ? tools.filter((tool) =>
+        `${tool.name} ${tool.shortDescription} ${tool.fullDescription} ${tool.categories.join(" ")} ${tool.bestFor.join(" ")} ${tool.features.join(" ")}`
+          .toLowerCase()
+          .includes(normalizedQuery),
+      )
+    : tools;
   return (
     <>
       <PageHero
@@ -67,16 +77,33 @@ export default function ToolsPage() {
           card shows the tool's best-fit workflow, current pricing notes and the
           next page to compare.
         </p>
-        <GroupBuySearch tools={tools} />
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {tools.map((tool) => (
-            <ToolCard
-              key={tool.slug}
-              tool={tool}
-              link={!["spybox", "flikover"].includes(tool.slug)}
-            />
-          ))}
-        </div>
+        <GroupBuySearch tools={tools} initialQuery={query} />
+        {query && (
+          <p
+            className="mt-5 text-sm font-semibold text-slate-600"
+            aria-live="polite"
+          >
+            {filteredTools.length}{" "}
+            {filteredTools.length === 1 ? "tool" : "tools"} matching &quot;
+            {query}&quot;
+          </p>
+        )}
+        {filteredTools.length ? (
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredTools.map((tool) => (
+              <ToolCard
+                key={tool.slug}
+                tool={tool}
+                link={!["spybox", "flikover"].includes(tool.slug)}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-10 rounded-xl border border-slate-300 bg-slate-50 p-6 text-sm text-slate-600">
+            No tools match &quot;{query}&quot;. Try a tool name, category or
+            workflow such as product research, ad intelligence or AI.
+          </div>
+        )}
         <section className="mt-14 border-t border-slate-200 pt-10">
           <h2 className="text-2xl font-black text-slate-950">
             Compare tools by workflow

@@ -3,25 +3,45 @@
 import { trackGroupBuyEvent } from "@/components/group-buy-analytics";
 import type { Tool } from "@/data/group-buy-tools";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
+import { type FormEvent, useEffect, useMemo, useState } from "react";
 
-export function GroupBuySearch({ tools }: { tools: Tool[] }) {
-  const [query, setQuery] = useState("");
+export function GroupBuySearch({
+  tools,
+  initialQuery = "",
+}: {
+  tools: Tool[];
+  initialQuery?: string;
+}) {
+  const router = useRouter();
+  const [query, setQuery] = useState(initialQuery);
+  useEffect(() => setQuery(initialQuery), [initialQuery]);
   const results = useMemo(
     () =>
       tools.filter((tool) =>
-        `${tool.name} ${tool.categories.join(" ")}`
+        `${tool.name} ${tool.shortDescription} ${tool.categories.join(" ")} ${tool.bestFor.join(" ")}`
           .toLowerCase()
           .includes(query.toLowerCase()),
       ),
     [query, tools],
   );
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmedQuery = query.trim();
+    trackGroupBuyEvent("tool_search_submit", { query: trimmedQuery });
+    router.push(
+      trimmedQuery ? `/tools?q=${encodeURIComponent(trimmedQuery)}` : "/tools",
+    );
+  }
   return (
     <div className="relative mx-auto mt-8 min-w-0 w-full max-w-2xl">
       <label htmlFor="tool-search" className="sr-only">
         Search a tool
       </label>
-      <div className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-300 bg-white p-2 shadow-sm focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100">
+      <form
+        onSubmit={handleSubmit}
+        className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-300 bg-white p-2 shadow-sm focus-within:border-indigo-500 focus-within:ring-4 focus-within:ring-indigo-100"
+      >
         <input
           id="tool-search"
           value={query}
@@ -32,10 +52,10 @@ export function GroupBuySearch({ tools }: { tools: Tool[] }) {
           placeholder="Search Minea, Claude, PiPiADS..."
           className="block min-w-0 flex-1 bg-transparent px-3 py-2 text-base outline-none placeholder:text-slate-400"
         />
-        <Link href="/tools" className="button button-primary shrink-0 px-4">
-          Browse tools
-        </Link>
-      </div>
+        <button type="submit" className="button button-primary shrink-0 px-4">
+          Search tools
+        </button>
+      </form>
       {query && (
         <div className="mt-2 rounded-lg border border-slate-200 bg-white p-2 shadow-xl">
           {results.length ? (
