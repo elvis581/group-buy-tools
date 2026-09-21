@@ -283,8 +283,8 @@ export function ToolCard({
   link = true,
 }: { tool: Tool; link?: boolean }) {
   const hasStandalonePage = link || tool.slug === "spybox";
-  return (
-    <article className="flex min-h-[250px] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+  const cardContent = (
+    <>
       <div className="flex items-start justify-between gap-3">
         <span className="grid size-10 place-items-center rounded-xl bg-indigo-100 text-xs font-black text-indigo-800">
           {tool.name.slice(0, 2).toUpperCase()}
@@ -293,15 +293,7 @@ export function ToolCard({
           {tool.categories[0]}
         </span>
       </div>
-      <h2 className="mt-5 text-xl font-black text-slate-950">
-        {hasStandalonePage ? (
-          <Link href={`/tools/${tool.slug}`} className="hover:text-indigo-800">
-            {tool.name}
-          </Link>
-        ) : (
-          tool.name
-        )}
-      </h2>
+      <h2 className="mt-5 text-xl font-black text-slate-950">{tool.name}</h2>
       <p className="mt-2 text-sm leading-6 text-slate-600">
         {tool.shortDescription}
       </p>
@@ -316,15 +308,12 @@ export function ToolCard({
           Last verified: {formatDate(tool.lastVerified)}
         </p>
         {hasStandalonePage ? (
-          <Link
-            href={`/tools/${tool.slug}`}
-            className="mt-2 inline-flex text-sm font-bold text-indigo-800"
-          >
+          <span className="mt-2 inline-flex text-sm font-bold text-indigo-800">
             {tool.slug === "spybox" ? "View SpyBox tool page" : "Explore tool"}{" "}
             <span className="ml-1" aria-hidden="true">
               →
             </span>
-          </Link>
+          </span>
         ) : (
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <span className="text-xs font-semibold text-slate-500">
@@ -359,7 +348,20 @@ export function ToolCard({
           </div>
         )}
       </div>
-    </article>
+    </>
+  );
+  const cardClassName =
+    "flex min-h-[250px] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-500";
+  return hasStandalonePage ? (
+    <Link
+      href={`/tools/${tool.slug}`}
+      aria-label={`Open ${tool.name} tool page`}
+      className={cardClassName}
+    >
+      {cardContent}
+    </Link>
+  ) : (
+    <article className={cardClassName}>{cardContent}</article>
   );
 }
 
