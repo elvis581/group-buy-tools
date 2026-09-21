@@ -1,7 +1,22 @@
 import { AffiliateCTA } from "@/components/group-buy-affiliate";
 import { GroupBuySearch } from "@/components/group-buy-search";
-import { FAQ, GuideCard, JsonLd, ToolCard } from "@/components/group-buy-site";
+import {
+  CategoryCard,
+  CollectionCard,
+  ComparisonCard,
+  FAQ,
+  GuideCard,
+  JsonLd,
+  ProviderCard,
+  ToolCard,
+} from "@/components/group-buy-site";
 import { siteConfig } from "@/config/site";
+import {
+  publishedCategories,
+  publishedCollections,
+  publishedComparisons,
+  publishedProviders,
+} from "@/data/group-buy-directory";
 import { guides, primaryTools, tools } from "@/data/group-buy-tools";
 import { faqSchema } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
@@ -85,7 +100,12 @@ export default function HomePage() {
             Compare official plans, group buy access, cheaper alternatives and
             tool bundles before you commit to a subscription.
           </p>
-          <GroupBuySearch tools={tools} />
+          <GroupBuySearch
+            tools={tools}
+            providers={publishedProviders}
+            categories={publishedCategories}
+            comparisons={publishedComparisons}
+          />
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <Link
               href="/deals"
@@ -114,17 +134,141 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      <section className="mx-auto w-full max-w-7xl px-5 sm:px-8">
-        <AffiliateCTA pageType="homepage" pageSlug="home" />
-      </section>
-      <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
+      <section className="mx-auto w-full max-w-7xl px-5 py-12 sm:px-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-              Start with intent
+              Featured offers
             </p>
             <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
-              Popular Group Buy Guides
+              Start with the products people compare most
+            </h2>
+          </div>
+          <Link href="/tools" className="text-sm font-bold text-indigo-800">
+            Browse all tools →
+          </Link>
+        </div>
+        <AffiliateCTA pageType="homepage" pageSlug="home" />
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {primaryTools.map((tool) => (
+            <ToolCard tool={tool} key={tool.slug} />
+          ))}
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-7xl px-5 pb-12 sm:px-8">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+              Categories
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+              Browse by workflow
+            </h2>
+          </div>
+          <Link
+            href="/categories"
+            className="text-sm font-bold text-indigo-800"
+          >
+            All categories →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {publishedCategories.map((category) => (
+            <CategoryCard key={category.slug} category={category} />
+          ))}
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-7xl px-5 pb-12 sm:px-8">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+              Providers
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+              Review the access source
+            </h2>
+          </div>
+          <Link href="/providers" className="text-sm font-bold text-indigo-800">
+            All providers →
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {publishedProviders.map((provider) => (
+            <ProviderCard key={provider.slug} provider={provider} />
+          ))}
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-7xl px-5 pb-12 sm:px-8">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+              Comparisons
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+              Make the provider choice explicit
+            </h2>
+          </div>
+          <Link href="/compare" className="text-sm font-bold text-indigo-800">
+            All comparisons →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {publishedComparisons.map((comparison) => (
+            <ComparisonCard key={comparison.slug} comparison={comparison} />
+          ))}
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-7xl px-5 pb-12 sm:px-8">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+              Collections
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+              Shortlists for real decisions
+            </h2>
+          </div>
+          <Link
+            href="/collections"
+            className="text-sm font-bold text-indigo-800"
+          >
+            All collections →
+          </Link>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {publishedCollections.map((collection) => (
+            <CollectionCard key={collection.slug} collection={collection} />
+          ))}
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-7xl px-5 pb-12 sm:px-8">
+        <div className="rounded-2xl border border-indigo-200 bg-indigo-50 p-7 sm:p-9">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+            Recently verified
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+            Follow the latest source checks
+          </h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+            Recent checks show when a public page was reviewed. They do not
+            guarantee availability, uptime or unchanged terms.
+          </p>
+          <Link
+            href="/collections/recently-verified"
+            className="mt-5 inline-flex text-sm font-bold text-indigo-800"
+          >
+            Open recently verified collection →
+          </Link>
+        </div>
+      </section>
+      <section className="mx-auto w-full max-w-7xl px-5 pb-12 sm:px-8">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+              Group buy guides
+            </p>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
+              Go deeper on a product decision
             </h2>
           </div>
           <Link href="/deals" className="text-sm font-bold text-indigo-800">
@@ -135,109 +279,6 @@ export default function HomePage() {
           {guides.map((guide) => (
             <GuideCard guide={guide} key={guide.slug} />
           ))}
-        </div>
-      </section>
-      <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-              Research library
-            </p>
-            <h2 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
-              Popular Tools
-            </h2>
-          </div>
-          <Link href="/tools" className="text-sm font-bold text-indigo-800">
-            Browse tools →
-          </Link>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {primaryTools.map((tool) => (
-            <ToolCard tool={tool} key={tool.slug} />
-          ))}
-        </div>
-      </section>
-      <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">
-        <article className="rounded-2xl border border-indigo-100 bg-indigo-50 p-7 sm:p-9">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-            Why this directory exists
-          </p>
-          <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-950">
-            Group Buy Tools for clearer software decisions
-          </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            Compare official pricing, third-party access models and cheaper
-            alternatives in one research path. Start with the workflow you need,
-            then verify the provider terms before paying.
-          </p>
-          <ul className="mt-5 grid gap-2 text-sm font-semibold text-indigo-900 sm:grid-cols-2">
-            <li>AI subscriptions</li>
-            <li>Ecommerce research</li>
-            <li>Ad intelligence</li>
-            <li>Bundle comparisons</li>
-          </ul>
-        </article>
-      </section>
-      <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          <Link
-            href="/minea-alternative"
-            className="rounded-xl border border-slate-200 bg-white p-6 hover:border-indigo-500"
-          >
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-              Cheaper alternatives
-            </p>
-            <h2 className="mt-3 text-xl font-black">Minea Alternatives →</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Compare ad spy, TikTok and product research options.
-            </p>
-          </Link>
-          <Link
-            href="/spybox-alternative"
-            className="rounded-xl border border-slate-200 bg-white p-6 hover:border-indigo-500"
-          >
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-              Bundle decisions
-            </p>
-            <h2 className="mt-3 text-xl font-black">SpyBox Alternatives →</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Compare group-buy style software access platforms.
-            </p>
-          </Link>
-          <Link
-            href="/spybox-vs-flikover"
-            className="rounded-xl border border-slate-200 bg-white p-6 hover:border-indigo-500"
-          >
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-              Head-to-head
-            </p>
-            <h2 className="mt-3 text-xl font-black">SpyBox vs Flikover →</h2>
-            <p className="mt-2 text-sm text-slate-600">
-              Review access models and fit for your workflow.
-            </p>
-          </Link>
-        </div>
-      </section>
-      <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-          Browse by need
-        </p>
-        <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-5">
-          <span className="rounded-xl bg-indigo-50 p-4 text-sm font-bold text-indigo-900">
-            AI Tools
-          </span>
-          <span className="rounded-xl bg-indigo-50 p-4 text-sm font-bold text-indigo-900">
-            Ecommerce Tools
-          </span>
-          <span className="rounded-xl bg-indigo-50 p-4 text-sm font-bold text-indigo-900">
-            Ad Spy Tools
-          </span>
-          <span className="rounded-xl bg-indigo-50 p-4 text-sm font-bold text-indigo-900">
-            Product Research
-          </span>
-          <span className="rounded-xl bg-indigo-50 p-4 text-sm font-bold text-indigo-900">
-            Tool Bundles
-          </span>
         </div>
       </section>
       <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">

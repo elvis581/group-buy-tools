@@ -8,6 +8,7 @@ import {
   RelatedPages,
 } from "@/components/group-buy-site";
 import { siteConfig } from "@/config/site";
+import { offersForTool, providerMap } from "@/data/group-buy-directory";
 import {
   formatPricingLabel,
   primaryTools,
@@ -36,6 +37,13 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
   const tool = toolMap[params.slug];
   if (!tool || !primaryTools.some((item) => item.slug === params.slug))
     notFound();
+  const providerSlugs = new Set(
+    offersForTool(tool.slug).map((offer) => offer.providerSlug),
+  );
+  if (tool.slug === "spybox") providerSlugs.add("spybox");
+  const relatedProviders = Array.from(providerSlugs)
+    .map((slug) => providerMap[slug])
+    .filter((provider) => provider?.published);
   const faqs = [
     {
       question: `Who is ${tool.name} best for?`,
@@ -171,6 +179,23 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
             pageSlug={`tools/${tool.slug}`}
             toolName={tool.spyboxIncluded ? tool.name : undefined}
           />
+          <h2>Provider and access sources</h2>
+          <p>
+            Product facts and third-party access offers answer different
+            questions. Open the provider review for the source, access model,
+            limits and support details connected to this tool.
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {relatedProviders.map((provider) => (
+              <Link
+                key={provider.slug}
+                href={`/providers/${provider.slug}`}
+                className="rounded-lg border border-slate-300 bg-white p-4 text-sm font-bold text-indigo-800 hover:border-indigo-500"
+              >
+                {provider.name} provider review →
+              </Link>
+            ))}
+          </div>
           <h2>Questions to verify before choosing</h2>
           <p>
             Start with the exact job you need {tool.name} to perform. Write down
@@ -258,6 +283,15 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           >
             Compare alternatives →
           </Link>
+          {relatedProviders.map((provider) => (
+            <Link
+              key={provider.slug}
+              href={`/providers/${provider.slug}`}
+              className="mt-4 block text-sm font-bold text-indigo-800"
+            >
+              {provider.name} provider review →
+            </Link>
+          ))}
         </aside>
       </section>
       <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">
@@ -280,7 +314,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
                         label: "SpyBox Alternatives",
                       },
                       {
-                        href: "/spybox-vs-flikover",
+                        href: "/compare/spybox-vs-flikover",
                         label: "SpyBox vs Flikover",
                       },
                     ]

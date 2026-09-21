@@ -47,7 +47,7 @@ export const metadata = constructMetadata({
   title: "SpyBox vs Flikover: Group Buy Tool Comparison",
   description:
     "Compare SpyBox and Flikover on tool library, access model, usage limits, support, stability, refunds and workflow fit.",
-  canonicalUrl: `${siteConfig.url}/spybox-vs-flikover`,
+  canonicalUrl: `${siteConfig.url}/compare/spybox-vs-flikover`,
   primaryKeyword: "spybox vs flikover",
 });
 export default function Page() {
@@ -63,7 +63,10 @@ export default function Page() {
           <Breadcrumbs
             items={[
               { label: "Alternatives", href: "/alternatives" },
-              { label: "SpyBox vs Flikover" },
+              {
+                label: "SpyBox vs Flikover",
+                href: "/compare/spybox-vs-flikover",
+              },
             ]}
           />
           <h2>Quick verdict</h2>
@@ -205,7 +208,7 @@ export default function Page() {
         data={breadcrumbSchema([
           { name: "Home", path: "/" },
           { name: "Alternatives", path: "/alternatives" },
-          { name: "SpyBox vs Flikover" },
+          { name: "SpyBox vs Flikover", path: "/compare/spybox-vs-flikover" },
         ])}
       />
       <JsonLd id="spybox-vs-faq" data={faqSchema(faqs)} />

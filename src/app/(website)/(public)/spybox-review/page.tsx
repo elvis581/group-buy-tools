@@ -165,7 +165,7 @@ export default function SpyBoxReviewPage() {
               Compare SpyBox alternatives →
             </Link>
             <Link
-              href="/spybox-vs-flikover"
+              href="/compare/spybox-vs-flikover"
               className="rounded-lg border border-slate-300 bg-white p-4 text-sm font-bold text-indigo-800 hover:border-indigo-500"
             >
               SpyBox vs Flikover →

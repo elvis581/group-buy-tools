@@ -164,7 +164,7 @@ export default function Page() {
         <aside className="h-fit rounded-xl border border-slate-200 bg-white p-5 lg:sticky lg:top-24">
           <h2 className="text-lg font-black">Related comparisons</h2>
           <Link
-            href="/spybox-vs-flikover"
+            href="/compare/spybox-vs-flikover"
             className="mt-4 block text-sm font-bold text-indigo-800"
           >
             SpyBox vs Flikover →

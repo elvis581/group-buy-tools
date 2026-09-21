@@ -8,6 +8,11 @@ import {
   ToolCard,
 } from "@/components/group-buy-site";
 import { siteConfig } from "@/config/site";
+import {
+  publishedCategories,
+  publishedComparisons,
+  publishedProviders,
+} from "@/data/group-buy-directory";
 import { tools } from "@/data/group-buy-tools";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
@@ -62,6 +67,27 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
           .includes(normalizedQuery),
       )
     : tools;
+  const matchingProviders = normalizedQuery
+    ? publishedProviders.filter((provider) =>
+        `${provider.name} ${provider.shortDescription}`
+          .toLowerCase()
+          .includes(normalizedQuery),
+      )
+    : [];
+  const matchingCategories = normalizedQuery
+    ? publishedCategories.filter((category) =>
+        `${category.name} ${category.description}`
+          .toLowerCase()
+          .includes(normalizedQuery),
+      )
+    : [];
+  const matchingComparisons = normalizedQuery
+    ? publishedComparisons.filter((comparison) =>
+        `${comparison.title} ${comparison.description}`
+          .toLowerCase()
+          .includes(normalizedQuery),
+      )
+    : [];
   return (
     <>
       <PageHero
@@ -77,7 +103,13 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
           card shows the tool's best-fit workflow, current pricing notes and the
           next page to compare.
         </p>
-        <GroupBuySearch tools={tools} initialQuery={query} />
+        <GroupBuySearch
+          tools={tools}
+          providers={publishedProviders}
+          categories={publishedCategories}
+          comparisons={publishedComparisons}
+          initialQuery={query}
+        />
         {query && (
           <p
             className="mt-5 text-sm font-semibold text-slate-600"
@@ -104,6 +136,60 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
             workflow such as product research, ad intelligence or AI.
           </div>
         )}
+        {query &&
+        (matchingProviders.length ||
+          matchingCategories.length ||
+          matchingComparisons.length) ? (
+          <section className="mt-12 border-t border-slate-200 pt-10">
+            <h2 className="text-2xl font-black text-slate-950">
+              Related directory results
+            </h2>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {matchingProviders.map((provider) => (
+                <Link
+                  key={`provider-${provider.slug}`}
+                  href={`/providers/${provider.slug}`}
+                  className="rounded-lg border border-slate-300 bg-white p-4 hover:border-indigo-500"
+                >
+                  <span className="text-xs font-black uppercase tracking-wide text-indigo-800">
+                    Provider
+                  </span>
+                  <strong className="mt-2 block text-slate-950">
+                    {provider.name}
+                  </strong>
+                </Link>
+              ))}
+              {matchingCategories.map((category) => (
+                <Link
+                  key={`category-${category.slug}`}
+                  href={`/categories/${category.slug}`}
+                  className="rounded-lg border border-slate-300 bg-white p-4 hover:border-indigo-500"
+                >
+                  <span className="text-xs font-black uppercase tracking-wide text-indigo-800">
+                    Category
+                  </span>
+                  <strong className="mt-2 block text-slate-950">
+                    {category.name}
+                  </strong>
+                </Link>
+              ))}
+              {matchingComparisons.map((comparison) => (
+                <Link
+                  key={`comparison-${comparison.slug}`}
+                  href={`/compare/${comparison.slug}`}
+                  className="rounded-lg border border-slate-300 bg-white p-4 hover:border-indigo-500"
+                >
+                  <span className="text-xs font-black uppercase tracking-wide text-indigo-800">
+                    Comparison
+                  </span>
+                  <strong className="mt-2 block text-slate-950">
+                    {comparison.title}
+                  </strong>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ) : null}
         <section className="mt-14 border-t border-slate-200 pt-10">
           <h2 className="text-2xl font-black text-slate-950">
             Compare tools by workflow

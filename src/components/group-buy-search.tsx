@@ -1,28 +1,86 @@
 "use client";
 
 import { trackGroupBuyEvent } from "@/components/group-buy-analytics";
+import type {
+  Comparison,
+  DirectoryCategory,
+  Provider,
+} from "@/data/group-buy-directory";
 import type { Tool } from "@/data/group-buy-tools";
 import Link from "next/link";
 import { type FormEvent, useEffect, useMemo, useState } from "react";
 
 export function GroupBuySearch({
   tools,
+  providers = [],
+  categories = [],
+  comparisons = [],
   initialQuery = "",
 }: {
   tools: Tool[];
+  providers?: Provider[];
+  categories?: DirectoryCategory[];
+  comparisons?: Comparison[];
   initialQuery?: string;
 }) {
   const [query, setQuery] = useState(initialQuery);
   useEffect(() => setQuery(initialQuery), [initialQuery]);
-  const results = useMemo(
-    () =>
-      tools.filter((tool) =>
-        `${tool.name} ${tool.shortDescription} ${tool.categories.join(" ")} ${tool.bestFor.join(" ")}`
-          .toLowerCase()
-          .includes(query.toLowerCase()),
-      ),
-    [query, tools],
-  );
+  const results = useMemo(() => {
+    const normalized = query.toLowerCase();
+    return [
+      ...tools
+        .filter((tool) =>
+          `${tool.name} ${tool.shortDescription} ${tool.categories.join(" ")} ${tool.bestFor.join(" ")}`
+            .toLowerCase()
+            .includes(normalized),
+        )
+        .map((tool) => ({
+          name: tool.name,
+          label: tool.categories[0],
+          href:
+            tool.slug === "flikover"
+              ? "/spybox-alternative"
+              : `/tools/${tool.slug}`,
+          kind: "Tool",
+        })),
+      ...providers
+        .filter((provider) =>
+          `${provider.name} ${provider.shortDescription}`
+            .toLowerCase()
+            .includes(normalized),
+        )
+        .map((provider) => ({
+          name: provider.name,
+          label: "Provider",
+          href: `/providers/${provider.slug}`,
+          kind: "Provider",
+        })),
+      ...categories
+        .filter((category) =>
+          `${category.name} ${category.description}`
+            .toLowerCase()
+            .includes(normalized),
+        )
+        .map((category) => ({
+          name: category.name,
+          label: "Category",
+          href: `/categories/${category.slug}`,
+          kind: "Category",
+        })),
+      ...comparisons
+        .filter((comparison) =>
+          `${comparison.title} ${comparison.description}`
+            .toLowerCase()
+            .includes(normalized),
+        )
+        .map((comparison) => ({
+          name: comparison.title,
+          label: "Comparison",
+          href: `/compare/${comparison.slug}`,
+          kind: "Comparison",
+        })),
+    ];
+  }, [categories, comparisons, providers, query, tools]);
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const trimmedQuery = query.trim();
     trackGroupBuyEvent("tool_search_submit", { query: trimmedQuery });
@@ -56,25 +114,21 @@ export function GroupBuySearch({
       {query && (
         <div className="mt-2 rounded-lg border border-slate-200 bg-white p-2 shadow-xl">
           {results.length ? (
-            results.map((tool) => (
+            results.map((result) => (
               <Link
-                key={tool.slug}
-                href={
-                  tool.slug === "flikover"
-                    ? "/spybox-alternative"
-                    : `/tools/${tool.slug}`
-                }
+                key={`${result.kind}-${result.href}`}
+                href={result.href}
                 onClick={() =>
                   trackGroupBuyEvent("tool_card_click", {
-                    tool_name: tool.name,
+                    tool_name: result.name,
                     source: "homepage_search",
                   })
                 }
                 className="flex items-center justify-between rounded-md px-3 py-2 text-sm font-bold hover:bg-indigo-50"
               >
-                <span>{tool.name}</span>
+                <span>{result.name}</span>
                 <span className="text-xs font-normal text-slate-500">
-                  {tool.categories[0]}
+                  {result.label}
                 </span>
               </Link>
             ))

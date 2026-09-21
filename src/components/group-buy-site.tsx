@@ -1,5 +1,11 @@
 import { AffiliateCTA } from "@/components/group-buy-affiliate";
 import { spyboxAffiliateUrl } from "@/config/site";
+import type {
+  Collection,
+  Comparison,
+  DirectoryCategory,
+  Provider,
+} from "@/data/group-buy-directory";
 import {
   type Guide,
   type Tool,
@@ -60,6 +66,18 @@ export function GroupBuyHeader() {
           >
             Alternatives
           </Link>
+          <Link
+            href="/providers"
+            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
+          >
+            Providers
+          </Link>
+          <Link
+            href="/compare"
+            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
+          >
+            Compare
+          </Link>
         </nav>
         <a
           href={spyboxAffiliateUrl}
@@ -94,6 +112,18 @@ export function GroupBuyHeader() {
               className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
             >
               Alternatives
+            </Link>
+            <Link
+              href="/providers"
+              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
+            >
+              Providers
+            </Link>
+            <Link
+              href="/compare"
+              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
+            >
+              Compare
             </Link>
             <a
               href={spyboxAffiliateUrl}
@@ -139,6 +169,9 @@ export function GroupBuyFooter() {
             ["Tools", "/tools"],
             ["Group Buy Guides", "/deals"],
             ["Alternatives", "/alternatives"],
+            ["Providers", "/providers"],
+            ["Categories", "/categories"],
+            ["Collections", "/collections"],
           ]}
         />
         <FooterColumn
@@ -295,7 +328,7 @@ export function ToolCard({
         ) : (
           <div className="mt-2 flex flex-wrap items-center gap-3">
             <span className="text-xs font-semibold text-slate-500">
-              Comparison reference · provider details need verification
+              Provider details require confirmation before purchase
             </span>
             {tool.affiliateUrl && (
               <a
@@ -315,10 +348,118 @@ export function ToolCard({
             >
               Check provider ↗
             </a>
+            {tool.slug === "flikover" && (
+              <Link
+                href="/providers/flikover"
+                className="text-xs font-bold text-indigo-800"
+              >
+                Review provider →
+              </Link>
+            )}
           </div>
         )}
       </div>
     </article>
+  );
+}
+
+export function ProviderCard({ provider }: { provider: Provider }) {
+  return (
+    <Link
+      href={`/providers/${provider.slug}`}
+      className="group rounded-xl border border-slate-300 bg-white p-5 transition hover:border-indigo-500"
+    >
+      <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+        Provider review
+      </p>
+      <h2 className="mt-3 text-xl font-black text-slate-950">
+        {provider.name}
+      </h2>
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        {provider.shortDescription}
+      </p>
+      <p className="mt-4 text-xs font-semibold text-slate-500">
+        Last verified: {formatDate(provider.lastVerified)}
+      </p>
+      <span className="mt-4 inline-flex text-sm font-bold text-indigo-800">
+        Read provider review{" "}
+        <span className="ml-1" aria-hidden="true">
+          →
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+export function CategoryCard({ category }: { category: DirectoryCategory }) {
+  return (
+    <Link
+      href={`/categories/${category.slug}`}
+      className="rounded-xl border border-slate-300 bg-white p-5 transition hover:border-indigo-500"
+    >
+      <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+        Category directory
+      </p>
+      <h2 className="mt-3 text-xl font-black text-slate-950">
+        {category.name}
+      </h2>
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        {category.description}
+      </p>
+      <span className="mt-4 inline-flex text-sm font-bold text-indigo-800">
+        Browse category{" "}
+        <span className="ml-1" aria-hidden="true">
+          →
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+export function CollectionCard({ collection }: { collection: Collection }) {
+  return (
+    <Link
+      href={`/collections/${collection.slug}`}
+      className="rounded-xl border border-slate-300 bg-white p-5 transition hover:border-indigo-500"
+    >
+      <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+        Collection
+      </p>
+      <h2 className="mt-3 text-xl font-black text-slate-950">
+        {collection.name}
+      </h2>
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        {collection.description}
+      </p>
+      <p className="mt-4 text-xs font-semibold text-slate-500">
+        Updated: {formatDate(collection.lastUpdated)}
+      </p>
+    </Link>
+  );
+}
+
+export function ComparisonCard({ comparison }: { comparison: Comparison }) {
+  return (
+    <Link
+      href={`/compare/${comparison.slug}`}
+      className="rounded-xl border border-slate-300 bg-white p-5 transition hover:border-indigo-500"
+    >
+      <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+        Comparison
+      </p>
+      <h2 className="mt-3 text-xl font-black text-slate-950">
+        {comparison.title}
+      </h2>
+      <p className="mt-2 text-sm leading-6 text-slate-600">
+        {comparison.description}
+      </p>
+      <span className="mt-4 inline-flex text-sm font-bold text-indigo-800">
+        Open comparison{" "}
+        <span className="ml-1" aria-hidden="true">
+          →
+        </span>
+      </span>
+    </Link>
   );
 }
 
