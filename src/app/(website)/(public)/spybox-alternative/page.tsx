@@ -8,7 +8,11 @@ import {
   PageHero,
 } from "@/components/group-buy-site";
 import { siteConfig } from "@/config/site";
-import { formatPricingLabel, toolMap } from "@/data/group-buy-tools";
+import {
+  formatPricingLabel,
+  spyboxDirectory,
+  toolMap,
+} from "@/data/group-buy-tools";
 import { breadcrumbSchema, faqSchema } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
 import Link from "next/link";
@@ -35,9 +39,9 @@ const faqs = [
   },
 ];
 export const metadata = constructMetadata({
-  title: "SpyBox Alternatives: Group Buy Tools & Bundles",
+  title: "SpyBox Alternatives: Options and Access Models to Compare",
   description:
-    "Compare SpyBox alternatives such as Flikover across tool libraries, access models, limits, stability and support.",
+    "Compare SpyBox with Flikover and other access models using current public tool listings, pricing, limits and support questions.",
   canonicalUrl: `${siteConfig.url}/spybox-alternative`,
   primaryKeyword: "spybox alternative",
 });
@@ -46,7 +50,7 @@ export default function Page() {
     <>
       <PageHero
         eyebrow="Bundles · access models"
-        title="Best SpyBox Alternatives"
+        title="SpyBox Alternatives: Options and Access Models to Compare"
         description="Compare SpyBox with Flikover and other group-buy style platforms across library breadth, access model, limits, stability and support."
       />
       <section className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[minmax(0,1fr)_300px]">
@@ -57,7 +61,6 @@ export default function Page() {
               { label: "SpyBox Alternative" },
             ]}
           />
-          <AffiliateCTA pageType="alternative" pageSlug="spybox-alternative" />
           <h2>Quick verdict</h2>
           <p>
             SpyBox and Flikover should be compared on the actual tools you need,
@@ -67,29 +70,17 @@ export default function Page() {
           </p>
           <h2>How to evaluate a SpyBox alternative</h2>
           <p>
-            A SpyBox alternative is useful only when it covers the same jobs
-            with a clearly documented access model. Compare the SpyBox
-            alternative against official plans, current limits, privacy
-            expectations and support before making a switch.
+            A useful replacement covers the same jobs with a clearly documented
+            access model. Compare each candidate with the official subscription
+            it may replace, including current limits, privacy expectations,
+            support and refund terms.
           </p>
           <p>
-            Treat each SpyBox alternative as a separate provider decision and
-            verify the current offer before relying on it for regular work.
+            Treat the public listing as a starting point and recheck it when a
+            provider changes its library or account rules. The right option is
+            the one whose current terms you can verify and whose access model
+            fits your work.
           </p>
-          <p>
-            Compare a SpyBox alternative with the official subscription it may
-            replace. A SpyBox alternative should make its account model, support
-            and limits clear before you commit.
-          </p>
-          <p>
-            The right SpyBox alternative is the one whose current terms you can
-            verify and whose access model fits your work.
-          </p>
-          <p>
-            Recheck the SpyBox alternative when the provider changes its library
-            or account rules.
-          </p>
-          <p>That check keeps the SpyBox alternative recommendation current.</p>
           <h2>Why look for a SpyBox alternative?</h2>
           <p>
             People compare these platforms when they want a different tool
@@ -101,11 +92,27 @@ export default function Page() {
           <ComparisonTable
             headers={["Dimension", "SpyBox", "Flikover"]}
             rows={[
-              ["Tool library", "Not confirmed", "Not confirmed"],
-              ["AI tools", "Not confirmed", "Not confirmed"],
-              ["Ecommerce tools", "Not confirmed", "Not confirmed"],
-              ["SEO tools", "Not confirmed", "Not confirmed"],
-              ["Ad spy tools", "Not confirmed", "Not confirmed"],
+              [
+                "Tool library",
+                `${spyboxDirectory.toolCount} tools listed across 6 categories`,
+                "Not publicly listed",
+              ],
+              [
+                "AI tools",
+                "5 AI assistants + 6 AI media tools listed",
+                "Not confirmed",
+              ],
+              [
+                "Ecommerce tools",
+                "13 Products & Sales Tracking tools listed",
+                "Not confirmed",
+              ],
+              ["SEO tools", "2 Amazon & SEO tools listed", "Not confirmed"],
+              [
+                "Ad spy tools",
+                "6 Ads & Creative Spy tools listed",
+                "Not confirmed",
+              ],
               ["Access model", "Third-party; verify", "Third-party; verify"],
               [
                 "Pricing",
@@ -142,6 +149,7 @@ export default function Page() {
             an official subscription or focused alternative may be easier to
             evaluate.
           </p>
+          <AffiliateCTA pageType="alternative" pageSlug="spybox-alternative" />
           <h2>What to verify before switching</h2>
           <p>
             Check each provider's current library and access rules directly.
@@ -149,14 +157,6 @@ export default function Page() {
             appropriate for the account model, and how support handles a failed
             login or an unavailable tool. These details matter more than a
             general claim that one bundle is cheaper.
-          </p>
-          <p>
-            Recheck the SpyBox alternative comparison when either provider
-            changes its library or access rules.
-          </p>
-          <p>
-            Keep the SpyBox alternative decision tied to a documented access
-            model and current provider terms.
           </p>
           <FAQ items={faqs} />
           <Disclosure />

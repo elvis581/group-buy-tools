@@ -25,7 +25,24 @@ export type Tool = {
   alternatives: string[];
   competitors: string[];
   spyboxIncluded?: boolean;
+  spyboxSourceUrl?: string;
+  spyboxLastChecked?: string;
   lastVerified: string;
+};
+
+export const spyboxToolsUrl = "https://spybox.io/tools";
+export const spyboxDirectory = {
+  toolCount: 36,
+  lastChecked: "2026-09-21",
+  sourceUrl: spyboxToolsUrl,
+  categories: [
+    { name: "Products & Sales Tracking", count: 13 },
+    { name: "AI Media Creations", count: 6 },
+    { name: "Ads & Creative Spy", count: 6 },
+    { name: "AI Assistants", count: 5 },
+    { name: "Design & Content", count: 4 },
+    { name: "Amazon & SEO", count: 2 },
+  ],
 };
 
 export const tools: Tool[] = [
@@ -66,6 +83,9 @@ export const tools: Tool[] = [
     ],
     alternatives: ["PiPiADS", "Kalodata", "SpyBox"],
     competitors: ["PiPiADS", "Kalodata"],
+    spyboxIncluded: true,
+    spyboxSourceUrl: spyboxToolsUrl,
+    spyboxLastChecked: "2026-09-21",
     lastVerified: "2026-09-20",
   },
   {
@@ -106,6 +126,9 @@ export const tools: Tool[] = [
     ],
     alternatives: ["Minea", "PiPiADS", "SpyBox"],
     competitors: ["Minea", "PiPiADS"],
+    spyboxIncluded: true,
+    spyboxSourceUrl: spyboxToolsUrl,
+    spyboxLastChecked: "2026-09-21",
     lastVerified: "2026-09-20",
   },
   {
@@ -149,6 +172,9 @@ export const tools: Tool[] = [
     ],
     alternatives: ["Minea", "Kalodata", "SpyBox"],
     competitors: ["Minea", "Kalodata"],
+    spyboxIncluded: true,
+    spyboxSourceUrl: spyboxToolsUrl,
+    spyboxLastChecked: "2026-09-21",
     lastVerified: "2026-09-20",
   },
   {
@@ -188,6 +214,9 @@ export const tools: Tool[] = [
     ],
     alternatives: ["SpyBox"],
     competitors: ["ChatGPT", "Gemini"],
+    spyboxIncluded: true,
+    spyboxSourceUrl: spyboxToolsUrl,
+    spyboxLastChecked: "2026-09-21",
     lastVerified: "2026-09-20",
   },
   {
@@ -450,4 +479,5 @@ export const coreSeoPaths = [
   "/minea-alternative",
   "/spybox-alternative",
   "/spybox-vs-flikover",
+  "/spybox-review",
 ];

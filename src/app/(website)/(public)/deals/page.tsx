@@ -70,49 +70,45 @@ export default function DealsPage() {
             you need to do.
           </p>
           <p>
-            This group buy tools directory keeps the access model beside the
-            official product so you can compare both before paying.
+            This directory keeps the access model beside the official product so
+            you can compare both before paying.
           </p>
-          <h2>How these group buy tools guides are organized</h2>
+          <h2>How these guides are organized</h2>
           <p>
-            Each group buy tools guide starts with the official product, then
-            explains shared access, limitations and alternatives. That structure
-            keeps a lower-cost option in context instead of treating every group
-            buy tools listing as an official discount.
+            Each guide starts with the official product, then explains shared
+            access, limitations and alternatives. That keeps a lower-cost option
+            in context instead of presenting it as an official discount.
           </p>
           <p>
-            Use the group buy tools index as a starting point, then confirm the
-            provider terms that apply to your account.
+            Use this index as a starting point, then confirm the provider terms
+            that apply to your account.
           </p>
           <h2>How to use these guides</h2>
           <p>
             Start with the guide for the tool you already understand. Read the
             official pricing section first, then compare the account model and
             limitations described for third-party access. This order helps you
-            distinguish a real group buy tools workflow fit from a headline
-            promise about lower cost.
+            distinguish a workflow fit from a headline promise about lower cost.
           </p>
           <p>
             Next, write down the tasks that cannot be interrupted, the data you
             cannot share, and the usage volume you expect. Those constraints
             determine whether an owned subscription, a focused alternative or a
-            managed group buy tools bundle is practical. Recheck the linked
-            provider before paying because offers, availability and support
-            terms can change.
+            managed bundle is practical. Recheck the linked provider before
+            paying because offers, availability and support terms can change.
           </p>
           <p>
             The directory is a comparison starting point rather than a guarantee
             that any provider will meet a particular service level. Use the
-            linked official pages to confirm the final group buy tools details
-            that matter to your account.
+            linked official pages to confirm the final details that matter to
+            your account.
           </p>
-          <h2>Questions to answer before a group buy tools purchase</h2>
+          <h2>Questions to answer before a purchase</h2>
           <p>
-            Note which group buy tools you need, who will use the account and
-            whether the workflow contains confidential research. Then check
-            access frequency, support response and cancellation steps. This
-            short record makes the group buy tools decision easier to review
-            when an offer or provider changes.
+            Note which tools you need, who will use the account and whether the
+            workflow contains confidential research. Then check access
+            frequency, support response and cancellation steps. This short
+            record makes the decision easier to review when an offer changes.
           </p>
           <FAQ items={faqs} />
         </article>

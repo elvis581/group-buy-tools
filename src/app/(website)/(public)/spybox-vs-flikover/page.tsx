@@ -8,7 +8,11 @@ import {
   PageHero,
 } from "@/components/group-buy-site";
 import { siteConfig } from "@/config/site";
-import { formatPricingLabel, toolMap } from "@/data/group-buy-tools";
+import {
+  formatPricingLabel,
+  spyboxDirectory,
+  toolMap,
+} from "@/data/group-buy-tools";
 import { breadcrumbSchema, faqSchema } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
 import Link from "next/link";
@@ -62,7 +66,6 @@ export default function Page() {
               { label: "SpyBox vs Flikover" },
             ]}
           />
-          <AffiliateCTA pageType="comparison" pageSlug="spybox-vs-flikover" />
           <h2>Quick verdict</h2>
           <p>
             SpyBox and Flikover are both third-party access options. The better
@@ -71,28 +74,10 @@ export default function Page() {
           </p>
           <h2>What SpyBox vs Flikover answers</h2>
           <p>
-            The SpyBox vs Flikover comparison is about access model and fit, not
-            an assumed discount. Use SpyBox vs Flikover evidence to check the
-            exact library, limits and support that matter to your workflow.
-          </p>
-          <p>
-            Revisit the SpyBox vs Flikover comparison whenever a provider
-            changes its access rules, library or support terms.
-          </p>
-          <p>
-            Use SpyBox vs Flikover evidence for the exact tools you need, then
-            recheck SpyBox vs Flikover terms before a recurring purchase.
-          </p>
-          <p>
-            SpyBox vs Flikover should end with a documented choice about access,
-            limits and support rather than an assumed winner.
-          </p>
-          <p>
-            Keep a record of the SpyBox vs Flikover terms you verified and when
-            you verified them.
-          </p>
-          <p>
-            That record makes the SpyBox vs Flikover choice easier to revisit.
+            This comparison focuses on access model and workflow fit rather than
+            assuming that either bundle is a discount. Check the exact library,
+            limits and support that matter to your work, and date the evidence
+            before making a recurring purchase.
           </p>
           <h2>Key differences</h2>
           <p>
@@ -104,27 +89,39 @@ export default function Page() {
           <ComparisonTable
             headers={["Dimension", "SpyBox", "Flikover"]}
             rows={[
-              "Pricing",
-              "Tool library",
-              "AI tools",
-              "Ecommerce tools",
-              "SEO tools",
-              "Ad spy tools",
-              "Access model",
-              "Usage limits",
-              "Support",
-              "Refund policy",
-            ].map((label) =>
-              label === "Pricing"
-                ? [
-                    label,
-                    toolMap.spybox.pricing.summary ||
-                      formatPricingLabel(toolMap.spybox),
-                    toolMap.flikover.pricing.summary ||
-                      formatPricingLabel(toolMap.flikover),
-                  ]
-                : [label, "Not confirmed", "Not confirmed"],
-            )}
+              [
+                "Pricing",
+                toolMap.spybox.pricing.summary ||
+                  formatPricingLabel(toolMap.spybox),
+                toolMap.flikover.pricing.summary ||
+                  formatPricingLabel(toolMap.flikover),
+              ],
+              [
+                "Tool library",
+                `${spyboxDirectory.toolCount} tools listed across 6 categories`,
+                "Not publicly listed",
+              ],
+              [
+                "AI tools",
+                "5 AI assistants + 6 AI media tools listed",
+                "Not confirmed",
+              ],
+              [
+                "Ecommerce tools",
+                "13 Products & Sales Tracking tools listed",
+                "Not confirmed",
+              ],
+              ["SEO tools", "2 Amazon & SEO tools listed", "Not confirmed"],
+              [
+                "Ad spy tools",
+                "6 Ads & Creative Spy tools listed",
+                "Not confirmed",
+              ],
+              ["Access model", "Third-party; verify", "Third-party; verify"],
+              ["Usage limits", "Not confirmed", "Not confirmed"],
+              ["Support", "Verify with provider", "Verify with provider"],
+              ["Refund policy", "Not confirmed", "Not confirmed"],
+            ]}
           />
           <h2>Who should choose SpyBox?</h2>
           <p>
@@ -143,6 +140,7 @@ export default function Page() {
             unclear, an official plan or focused alternative may be easier to
             evaluate and maintain.
           </p>
+          <AffiliateCTA pageType="comparison" pageSlug="spybox-vs-flikover" />
           <h2>Evidence to collect before deciding</h2>
           <p>
             Open both provider pages and record the current library, account
@@ -152,18 +150,13 @@ export default function Page() {
             workflow instead of an unverified bundle claim.
           </p>
           <p>
-            Recheck SpyBox vs Flikover before any recurring purchase because
-            either access model can change.
+            Save the date and source for each fact you use. A dated note helps
+            you spot when a library, limit or support promise has changed.
           </p>
           <p>
-            Save the date and source for each SpyBox vs Flikover fact you use. A
-            dated note helps you spot when a library, limit or support promise
-            has changed and keeps the comparison tied to your actual workflow.
-          </p>
-          <p>
-            Use the SpyBox vs Flikover comparison again when your required tool
-            list changes, because a different library can change the practical
-            choice even when the headline offer stays the same.
+            Revisit the comparison when your required tool list changes, because
+            a different library can change the practical choice even when the
+            headline offer stays the same.
           </p>
           <h2>Decision checklist</h2>
           <p>

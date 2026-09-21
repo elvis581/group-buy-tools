@@ -88,10 +88,6 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
           <Breadcrumbs
             items={[{ label: "Tools", href: "/tools" }, { label: tool.name }]}
           />
-          <AffiliateCTA
-            pageType="tool_detail"
-            pageSlug={`tools/${tool.slug}`}
-          />
           <h2>Quick overview</h2>
           <p>
             {tool.shortDescription} This tool page covers the product decision
@@ -170,6 +166,11 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
             involve session limits, privacy concerns, usage caps, account
             restrictions and interruptions.
           </p>
+          <AffiliateCTA
+            pageType="tool_detail"
+            pageSlug={`tools/${tool.slug}`}
+            toolName={tool.spyboxIncluded ? tool.name : undefined}
+          />
           <h2>Questions to verify before choosing</h2>
           <p>
             Start with the exact job you need {tool.name} to perform. Write down

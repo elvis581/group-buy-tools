@@ -484,13 +484,16 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
         <article className="prose-content guide-prose max-w-none">
           <h2>Quick answer</h2>
           <p>{guide.verdict}</p>
-          <AffiliateCTA pageType="group_buy" pageSlug={guide.slug} />
+          <AffiliateCTA
+            pageType="group_buy"
+            pageSlug={guide.slug}
+            toolName={guide.brand}
+          />
           <h2>What this {guide.brand} group buy guide covers</h2>
           <p>
-            This {guide.brand} group buy guide separates official access from
-            third-party access so you can compare the {guide.brand} group buy
-            question with real workflow needs, current terms and practical
-            alternatives.
+            This guide separates the official plan from third-party access so
+            you can compare current terms, workflow fit and practical
+            alternatives before paying.
           </p>
           <h2>Official pricing</h2>
           <div className="mt-4 rounded-xl border border-slate-300 bg-slate-50 p-5">
@@ -518,25 +521,37 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
               )}
             </p>
           </div>
+          {tool.spyboxIncluded && (
+            <div className="mt-5 rounded-xl border border-indigo-200 bg-indigo-50 p-5">
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+                Current SpyBox listing
+              </p>
+              <p className="mt-2 text-base font-black text-slate-950">
+                {tool.name} is listed in SpyBox's public tools directory.
+              </p>
+              <p className="mt-2 text-sm leading-6 text-slate-600">
+                Checked{" "}
+                {formatDate(tool.spyboxLastChecked || tool.lastVerified)}. A
+                public listing confirms that the tool is advertised, not a
+                guaranteed access level, export right, uptime promise or
+                independent account.
+              </p>
+              {tool.spyboxSourceUrl && (
+                <a
+                  href={tool.spyboxSourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex text-sm font-bold text-indigo-800 underline"
+                >
+                  View SpyBox tool directory ↗
+                </a>
+              )}
+            </div>
+          )}
           <p>
-            For this {guide.brand} group buy decision, record the official plan
-            first and then compare any shared-access offer against that
-            baseline.
-          </p>
-          <p>
-            The {guide.brand} group buy route should be judged by the work it
-            supports, not by a headline claim about access.
-          </p>
-          <p>
-            Keep a dated note of the provider page, plan scope and access terms
-            you checked. That record makes it easier to spot changes in limits,
-            support or availability before the next renewal.
-          </p>
-          <p>
-            For this {guide.brand} group buy decision, keep the official plan
-            and the third-party offer in separate notes. Before renewing a{" "}
-            {guide.brand}
-            group buy, compare both records again.
+            Record the provider page, plan scope and access terms you checked,
+            then compare that dated note again before renewal. A lower price is
+            useful only when the access model supports the work you need.
           </p>
           <h2>Why people search for “{guide.brand} group buy”</h2>
           <p>{guide.why}</p>

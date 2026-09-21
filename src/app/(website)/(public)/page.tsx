@@ -79,7 +79,7 @@ export default function HomePage() {
             Group Buy Tools · Independent guides
           </p>
           <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl">
-            Find a better way to access the tools you need.
+            Compare Group Buy Tools, Official Plans &amp; Cheaper Alternatives
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
             Compare official plans, group buy access, cheaper alternatives and
@@ -166,25 +166,15 @@ export default function HomePage() {
             Group Buy Tools for clearer software decisions
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            Group Buy Tools brings group buy guides, official pricing notes and
-            cheaper alternatives into one research path. Use these Group Buy
-            Tools pages to compare access models before choosing a subscription
-            or a bundle.
-          </p>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            Group Buy Tools keeps the official source, the group buy question
-            and the alternative decision in the same place, so Group Buy Tools
-            readers can check terms before they pay.
-          </p>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
-            Use Group Buy Tools as a starting point, then confirm the provider
-            terms that apply to your account.
+            Compare official pricing, third-party access models and cheaper
+            alternatives in one research path. Start with the workflow you need,
+            then verify the provider terms before paying.
           </p>
           <ul className="mt-5 grid gap-2 text-sm font-semibold text-indigo-900 sm:grid-cols-2">
-            <li>Group Buy Tools for AI subscriptions</li>
-            <li>Group Buy Tools for ecommerce research</li>
-            <li>Group Buy Tools for ad intelligence</li>
-            <li>Group Buy Tools for bundle comparisons</li>
+            <li>AI subscriptions</li>
+            <li>Ecommerce research</li>
+            <li>Ad intelligence</li>
+            <li>Bundle comparisons</li>
           </ul>
         </article>
       </section>
