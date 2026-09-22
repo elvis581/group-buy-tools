@@ -145,36 +145,202 @@ export const providers: Provider[] = [
     slug: "toolsurf",
     name: "Toolsurf",
     shortDescription:
-      "Provider record reserved for future source verification.",
-    officialUrl: "https://toolsurf.com/",
-    sources: [],
-    lastVerified: "2026-09-21",
-    published: false,
+      "A provider-reported multi-tool access service advertising ecommerce, SEO and AI tools.",
+    publicToolCount: "100+ tools advertised on the public homepage",
+    startingPrice:
+      "$1.99/month advertised on the homepage; product pages may show different prices",
+    billingCycle:
+      "Monthly plans advertised; confirm the selected product and checkout cycle",
+    accessMethod:
+      "Instant access/provider login is advertised; the account model is not independently confirmed",
+    refundPolicy: "Not publicly confirmed in the checked product pages",
+    supportChannels: [
+      "Provider support widget",
+      "Support email on provider site",
+    ],
+    officialUrl: "https://www.toolsurf.com/",
+    sources: [
+      {
+        label: "Toolsurf homepage",
+        url: "https://www.toolsurf.com/",
+        checkedAt: "2026-09-22",
+        sourceType: "provider",
+      },
+      {
+        label: "Toolsurf Minea product page",
+        url: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
+        checkedAt: "2026-09-22",
+        sourceType: "official-product",
+      },
+    ],
+    lastVerified: "2026-09-22",
+    published: true,
   },
   {
     slug: "toolzbuy",
     name: "ToolzBuy",
     shortDescription:
-      "Provider record reserved for future source verification.",
+      "A provider-reported multi-tool service advertising 100+ tools and dedicated sessions.",
+    publicToolCount:
+      "100+ tools and 230+ free AI tools advertised on the homepage",
+    startingPrice: "₹249/month advertised plans; individual tools from ₹49",
+    billingCycle: "Monthly plans advertised from ₹249 to ₹2,999",
+    accessMethod:
+      "One-click dashboard and dedicated sessions are described by the provider",
+    refundPolicy:
+      "48-hour refund policy advertised; confirm eligibility at checkout",
+    supportChannels: ["24/7 live chat", "WhatsApp", "Telegram"],
     officialUrl: "https://toolzbuy.com/",
-    sources: [],
-    lastVerified: "2026-09-21",
-    published: false,
+    sources: [
+      {
+        label: "ToolzBuy homepage",
+        url: "https://toolzbuy.com/",
+        checkedAt: "2026-09-22",
+        sourceType: "provider",
+      },
+      {
+        label: "ToolzBuy Claude Pro Max page",
+        url: "https://toolzbuy.com/tool/claude-pro-max-group-buy",
+        checkedAt: "2026-09-22",
+        sourceType: "official-product",
+      },
+    ],
+    lastVerified: "2026-09-22",
+    published: true,
   },
 ];
 
 export const offers: Offer[] = [
-  ...["minea", "kalodata", "pipiads", "claude"].map((toolSlug) => ({
-    id: `spybox-${toolSlug}`,
-    toolSlug,
+  {
+    id: "spybox-minea",
+    toolSlug: "minea",
     providerSlug: "spybox",
+    price: "€29.99/month or €249.99/year",
+    billingCycle: "Monthly or annual",
     accessMethod: "Provider listing; exact account model requires confirmation",
     limits: ["Device, session, export and usage limits not publicly confirmed"],
-    availability: "provider-reported" as VerificationStatus,
+    availability: "provider-reported",
     sourceUrl: spyboxDirectory.sourceUrl,
     affiliateUrl: spyboxAffiliateUrl,
     lastVerified: spyboxDirectory.lastChecked,
-  })),
+  },
+  {
+    id: "spybox-kalodata",
+    toolSlug: "kalodata",
+    providerSlug: "spybox",
+    price: "€29.99/month or €249.99/year",
+    billingCycle: "Monthly or annual",
+    accessMethod: "Provider listing; exact account model requires confirmation",
+    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    availability: "provider-reported",
+    sourceUrl: spyboxDirectory.sourceUrl,
+    affiliateUrl: spyboxAffiliateUrl,
+    lastVerified: spyboxDirectory.lastChecked,
+  },
+  {
+    id: "spybox-pipiads",
+    toolSlug: "pipiads",
+    providerSlug: "spybox",
+    price: "€29.99/month or €249.99/year",
+    billingCycle: "Monthly or annual",
+    accessMethod: "Provider listing; exact account model requires confirmation",
+    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    availability: "provider-reported",
+    sourceUrl: spyboxDirectory.sourceUrl,
+    affiliateUrl: spyboxAffiliateUrl,
+    lastVerified: spyboxDirectory.lastChecked,
+  },
+  {
+    id: "spybox-claude",
+    toolSlug: "claude",
+    providerSlug: "spybox",
+    price: "€29.99/month or €249.99/year",
+    billingCycle: "Monthly or annual",
+    accessMethod: "Provider listing; exact account model requires confirmation",
+    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    availability: "provider-reported",
+    sourceUrl: spyboxDirectory.sourceUrl,
+    affiliateUrl: spyboxAffiliateUrl,
+    lastVerified: spyboxDirectory.lastChecked,
+  },
+  {
+    id: "toolsurf-minea",
+    toolSlug: "minea",
+    providerSlug: "toolsurf",
+    price: "$0.99 displayed product price; verify checkout",
+    billingCycle:
+      "Monthly product price displayed; checkout cycle requires confirmation",
+    accessMethod:
+      "Instant access/provider login advertised; account model not independently confirmed",
+    limits: [
+      "Feature parity, sessions, exports and support limits are not publicly confirmed",
+    ],
+    availability: "provider-reported",
+    sourceUrl: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
+    lastVerified: "2026-09-22",
+  },
+  {
+    id: "toolsurf-kalodata",
+    toolSlug: "kalodata",
+    providerSlug: "toolsurf",
+    price: "$0.99 displayed product price; verify checkout",
+    billingCycle:
+      "Monthly product price displayed; checkout cycle requires confirmation",
+    accessMethod:
+      "Instant access/provider login advertised; account model not independently confirmed",
+    limits: [
+      "Feature parity, sessions, exports and support limits are not publicly confirmed",
+    ],
+    availability: "provider-reported",
+    sourceUrl: "https://www.toolsurf.com/seo-tools/kalodata-group-buy/",
+    lastVerified: "2026-09-22",
+  },
+  {
+    id: "toolsurf-pipiads",
+    toolSlug: "pipiads",
+    providerSlug: "toolsurf",
+    price: "$0.99 displayed product price; verify checkout",
+    billingCycle:
+      "Monthly product price displayed; checkout cycle requires confirmation",
+    accessMethod:
+      "Instant access/provider login advertised; account model not independently confirmed",
+    limits: [
+      "Feature parity, sessions, exports and support limits are not publicly confirmed",
+    ],
+    availability: "provider-reported",
+    sourceUrl: "https://www.toolsurf.com/seo-tools/pipiads-group-buy/",
+    lastVerified: "2026-09-22",
+  },
+  {
+    id: "toolsurf-claude",
+    toolSlug: "claude",
+    providerSlug: "toolsurf",
+    price: "$0.99 displayed product price; verify checkout",
+    billingCycle:
+      "Monthly product price displayed; checkout cycle requires confirmation",
+    accessMethod:
+      "Instant access/provider login advertised; account model not independently confirmed",
+    limits: [
+      "Feature parity, sessions, exports and support limits are not publicly confirmed",
+    ],
+    availability: "provider-reported",
+    sourceUrl: "https://www.toolsurf.com/seo-tools/claude-ai-group-buy/",
+    lastVerified: "2026-09-22",
+  },
+  {
+    id: "toolzbuy-claude",
+    toolSlug: "claude",
+    providerSlug: "toolzbuy",
+    price: "₹2,999/month (Claude Pro Max)",
+    billingCycle: "Monthly",
+    accessMethod: "One-click dedicated session described by the provider",
+    limits: [
+      "3x usage limit is provider-claimed; exact caps and account terms require confirmation",
+    ],
+    availability: "provider-reported",
+    sourceUrl: "https://toolzbuy.com/tool/claude-pro-max-group-buy",
+    lastVerified: "2026-09-22",
+  },
 ];
 
 export const categories: DirectoryCategory[] = [
@@ -225,8 +391,8 @@ export const collections: Collection[] = [
     selectionNote:
       "Included because the source record has a current last-verified date. A recent check does not guarantee availability or service quality.",
     toolSlugs: ["spybox", "minea", "kalodata", "pipiads", "claude"],
-    providerSlugs: ["spybox", "flikover"],
-    lastUpdated: "2026-09-21",
+    providerSlugs: ["spybox", "flikover", "toolsurf", "toolzbuy"],
+    lastUpdated: "2026-09-22",
     published: true,
   },
   {

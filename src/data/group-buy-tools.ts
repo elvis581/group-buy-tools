@@ -410,7 +410,7 @@ export const guides: Guide[] = [
       "Explore PiPiADS group buy questions, official pricing checks, shared-access risks, ad research alternatives and bundle options.",
     why: "PiPiADS group buy searches often come from marketers who need short-form ad intelligence but want to test the research value before paying for an ongoing plan.",
     alternative:
-      "Minea offers a broader ecommerce research angle, Kalodata is centered on TikTok Shop signals, and a multi-tool bundle may fit a mixed research stack. Compare a PiPiADS group buy with those alternatives before deciding. The PiPiADS group buy question should stay tied to your actual ad research workflow.",
+      "Minea offers a broader ecommerce research angle, Kalodata is centered on TikTok Shop signals, and a multi-tool bundle may fit a mixed research stack. Keep the decision tied to your actual ad research workflow and the access terms you can verify.",
     verdict:
       "Compare PiPiADS on the quality and breadth of ad research you need. A group buy is a third-party access decision with stability and privacy trade-offs.",
     faq: [
@@ -488,6 +488,8 @@ export const coreSeoPaths = [
   "/providers",
   "/providers/spybox",
   "/providers/flikover",
+  "/providers/toolsurf",
+  "/providers/toolzbuy",
   "/categories",
   "/categories/ad-spy",
   "/categories/ecommerce-research",

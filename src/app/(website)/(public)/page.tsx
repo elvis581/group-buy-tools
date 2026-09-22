@@ -83,17 +83,17 @@ export default function HomePage() {
   return (
     <>
       <section className="border-b border-slate-200 bg-[linear-gradient(135deg,#edf7f1_0%,#f7faf8_65%)]">
-        <div className="mx-auto w-full max-w-7xl px-5 py-14 text-center sm:px-8 sm:py-20">
+        <div className="mx-auto w-full max-w-7xl px-5 py-10 text-center sm:px-8 sm:py-14">
           <div className="mx-auto max-w-3xl rounded-lg border border-indigo-100 bg-white/60 px-4 py-2 text-sm font-semibold text-indigo-900">
             Independent access comparisons for AI, ecommerce and marketing tools
             <span aria-hidden="true" className="ml-2">
               →
             </span>
           </div>
-          <p className="mt-14 text-xs font-black uppercase tracking-[0.2em] text-indigo-800">
+          <p className="mt-8 text-xs font-black uppercase tracking-[0.2em] text-indigo-800">
             Group Buy Tools · Independent guides
           </p>
-          <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl">
+          <h1 className="mx-auto mt-4 max-w-4xl text-4xl font-black leading-tight tracking-tight text-slate-950 sm:text-6xl">
             Compare Group Buy Tools, Official Plans &amp; Cheaper Alternatives
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">

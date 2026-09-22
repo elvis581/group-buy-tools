@@ -1,11 +1,20 @@
 import { AffiliateCTA } from "@/components/group-buy-affiliate";
-import { GroupBuyHeaderDropdown } from "@/components/group-buy-header-dropdown";
+import {
+  GroupBuyHeaderDropdown,
+  GroupBuyMobileMenu,
+  type HeaderMenu,
+} from "@/components/group-buy-header-dropdown";
 import { spyboxAffiliateUrl } from "@/config/site";
+import {
+  type Offer,
+  type Provider,
+  offersForTool,
+  providerMap,
+} from "@/data/group-buy-directory";
 import type {
   Collection,
   Comparison,
   DirectoryCategory,
-  Provider,
 } from "@/data/group-buy-directory";
 import {
   type Guide,
@@ -34,9 +43,7 @@ export function JsonLd({
   );
 }
 
-type HeaderMenuItem = { label: string; href: string };
-
-const headerMenus: Array<{ label: string; items: HeaderMenuItem[] }> = [
+const headerMenus: HeaderMenu[] = [
   {
     label: "Tools",
     items: [
@@ -70,6 +77,8 @@ const headerMenus: Array<{ label: string; items: HeaderMenuItem[] }> = [
       { label: "All Providers", href: "/providers" },
       { label: "SpyBox Review", href: "/providers/spybox" },
       { label: "Flikover Review", href: "/providers/flikover" },
+      { label: "Toolsurf Review", href: "/providers/toolsurf" },
+      { label: "ToolzBuy Review", href: "/providers/toolzbuy" },
     ],
   },
   {
@@ -118,32 +127,10 @@ export function GroupBuyHeader() {
         >
           Open SpyBox Offer <span aria-hidden="true">↗</span>
         </a>
-        <details className="relative lg:hidden">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center rounded-md border border-border px-3 text-sm font-bold text-slate-700">
-            Menu
-          </summary>
-          <nav
-            className="absolute right-0 top-14 z-50 w-56 rounded-lg border border-border bg-white p-2 shadow-xl"
-            aria-label="Mobile navigation"
-          >
-            {headerMenus.map((menu) => (
-              <GroupBuyHeaderDropdown
-                key={menu.label}
-                label={menu.label}
-                items={menu.items}
-                mobile
-              />
-            ))}
-            <a
-              href={spyboxAffiliateUrl}
-              target="_blank"
-              rel="sponsored noopener noreferrer"
-              className="block rounded-md bg-indigo-50 px-3 py-3 text-sm font-bold text-indigo-800"
-            >
-              Open SpyBox Offer ↗
-            </a>
-          </nav>
-        </details>
+        <GroupBuyMobileMenu
+          menus={headerMenus}
+          offerHref={spyboxAffiliateUrl}
+        />
       </div>
     </header>
   );
@@ -273,7 +260,7 @@ export function PageHero({
   return (
     <section className="border-b border-slate-200 bg-indigo-50">
       <div
-        className={`mx-auto w-full max-w-7xl px-5 sm:px-8 ${compact ? "py-10 sm:py-14" : "py-14 sm:py-20"}`}
+        className={`mx-auto w-full max-w-7xl px-5 sm:px-8 ${compact ? "py-8 sm:py-10" : "py-10 sm:py-14"}`}
       >
         <p className="text-xs font-black uppercase tracking-[0.18em] text-indigo-800">
           {eyebrow}
@@ -651,6 +638,103 @@ export function ComparisonTable({
   );
 }
 
+const offerStatusLabels: Record<Offer["availability"], string> = {
+  verified: "Verified",
+  "provider-reported": "Provider reported",
+  "requires-signup": "Requires sign-up",
+  "not-publicly-disclosed": "Not publicly disclosed",
+  "could-not-verify": "Could not verify",
+  unavailable: "Unavailable",
+};
+
+export function OfferTable({ offers }: { offers: Offer[] }) {
+  if (!offers.length) {
+    return (
+      <p className="mt-4 rounded-lg border border-slate-300 bg-slate-50 p-4 text-sm leading-6 text-slate-600">
+        No product-specific provider offer is publicly confirmed for this page
+        yet. Check the official product and provider sources before paying.
+      </p>
+    );
+  }
+  return (
+    <div className="mt-5 overflow-x-auto rounded-xl border border-slate-300 bg-white">
+      <table className="w-full min-w-[860px] text-left text-sm">
+        <thead className="bg-indigo-50">
+          <tr>
+            {[
+              "Provider",
+              "Price",
+              "Access method",
+              "Limits / restrictions",
+              "Verified",
+            ].map((header) => (
+              <th
+                key={header}
+                className="px-4 py-3 text-xs font-black uppercase tracking-wide text-indigo-900"
+              >
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-200">
+          {offers.map((offer) => {
+            const provider = providerMap[offer.providerSlug];
+            return (
+              <tr key={offer.id}>
+                <td className="px-4 py-4 align-top font-bold text-slate-950">
+                  {provider?.published ? (
+                    <Link
+                      href={`/providers/${provider.slug}`}
+                      className="text-indigo-800 hover:underline"
+                    >
+                      {provider.name}
+                    </Link>
+                  ) : (
+                    provider?.name || offer.providerSlug
+                  )}
+                  <span className="mt-1 block text-xs font-normal text-slate-500">
+                    {offerStatusLabels[offer.availability]}
+                  </span>
+                </td>
+                <td className="px-4 py-4 align-top text-slate-700">
+                  {offer.price || "Not publicly disclosed"}
+                  {offer.billingCycle && (
+                    <span className="mt-1 block text-xs text-slate-500">
+                      {offer.billingCycle}
+                    </span>
+                  )}
+                </td>
+                <td className="px-4 py-4 align-top text-slate-700">
+                  {offer.accessMethod || "Not publicly disclosed"}
+                </td>
+                <td className="px-4 py-4 align-top text-slate-700">
+                  {offer.limits?.length
+                    ? offer.limits.join(" ")
+                    : "Not publicly disclosed"}
+                </td>
+                <td className="px-4 py-4 align-top text-xs text-slate-600">
+                  <span className="block font-semibold">
+                    {formatDate(offer.lastVerified)}
+                  </span>
+                  <a
+                    href={offer.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1 inline-flex font-bold text-indigo-800 hover:underline"
+                  >
+                    Source ↗
+                  </a>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function TrustPage({
   title,
   description,
@@ -700,9 +784,9 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
         <article className="prose-content guide-prose max-w-none">
           <h2>Quick answer</h2>
           <p>
-            {guide.verdict} This {primaryKeyword} page keeps the official plan,
-            third-party access and alternatives separate so the decision can be
-            checked against a real workflow.
+            {guide.verdict} This page keeps the official plan, third-party
+            access and alternatives separate so the decision can be checked
+            against a real workflow.
           </p>
           <AffiliateCTA
             pageType="group_buy"
@@ -711,9 +795,9 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           />
           <h2>What this {guide.brand} group buy guide covers</h2>
           <p>
-            Use this {primaryKeyword} guide to separate the official plan from
-            third-party access and compare current terms, workflow fit and
-            practical alternatives before paying.
+            Separate the official plan from third-party access, then compare
+            current terms, workflow fit and practical alternatives before
+            paying.
           </p>
           <h2>Official pricing</h2>
           <div className="mt-4 rounded-xl border border-slate-300 bg-slate-50 p-5">
@@ -741,10 +825,17 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
               )}
             </p>
           </div>
+          <h2>Current provider offers</h2>
           <p>
-            For {primaryKeyword} decisions, the price is only one input. Check
-            what the plan includes, who controls the account and which limits
-            apply before treating a lower amount as a saving.
+            These rows record provider-published offer details checked on the
+            dates shown. They are comparison evidence, not a guarantee of
+            access, uptime or feature parity.
+          </p>
+          <OfferTable offers={offersForTool(tool.slug)} />
+          <p>
+            Price is only one input. Check what the plan includes, who controls
+            the account and which limits apply before treating a lower amount as
+            a saving.
           </p>
           {tool.spyboxIncluded && (
             <div className="mt-5 rounded-xl border border-indigo-200 bg-indigo-50 p-5">
@@ -775,25 +866,23 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           )}
           <p>
             Record the provider page, plan scope and access terms you checked,
-            then compare that dated note again before renewal. A{" "}
-            {primaryKeyword}
-            comparison is useful only when the access model supports the work
-            you need, and a lower price alone is not enough.
+            then compare that dated note again before renewal. The comparison is
+            useful only when the access model supports the work you need, and a
+            lower price alone is not enough.
           </p>
           <h2>Why people search for “{guide.brand} group buy”</h2>
           <p>{guide.why}</p>
           <h2>How group buy access usually works</h2>
           <p>
-            A {primaryKeyword} offer may give several users access to a shared
-            or managed account, or bundle multiple software products. The exact
+            A shared-access offer may give several users access to a shared or
+            managed account, or bundle multiple software products. The exact
             account model, session rules, support and provider terms vary. Ask
-            for those details before paying for a {primaryKeyword} offer.
+            for those details before paying.
           </p>
           <h2>Potential risks and limitations</h2>
           <p>
-            Before paying for {primaryKeyword}, confirm the sessions, usage
-            caps, privacy expectations and interruption process that matter to
-            your work.
+            Before paying, confirm the sessions, usage caps, privacy
+            expectations and interruption process that matter to your work.
           </p>
           <ul>
             <li>Shared access can create session limits or conflicts.</li>
@@ -835,8 +924,8 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           />
           <h2>Cheaper alternatives</h2>
           <p>
-            {guide.alternative} Compare {primaryKeyword} with the official plan
-            and alternatives on the same workflow before switching.
+            {guide.alternative} Compare the official plan and alternatives on
+            the same workflow before switching.
           </p>
           <h2>Who should choose which option?</h2>
           <p>
@@ -847,9 +936,9 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           </p>
           <h2>Verdict</h2>
           <p>
-            {guide.verdict} The right {primaryKeyword} choice depends on the
-            evidence you can verify today. There is no universal safe or
-            guaranteed option; verify current details yourself.
+            {guide.verdict} The right choice depends on the evidence you can
+            verify today. There is no universal safe or guaranteed option;
+            verify current details yourself.
           </p>
           <FAQ items={guide.faq} />
           <Disclosure />

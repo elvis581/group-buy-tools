@@ -13,10 +13,13 @@ export function AffiliateCTA({
   const destination = spyboxAffiliateUrl;
   const isSpyBoxPage = toolName === "SpyBox";
   return (
-    <aside className="my-10 flex flex-col justify-between gap-5 rounded-2xl border border-indigo-200 bg-indigo-50 p-6 sm:flex-row sm:items-center">
+    <aside
+      aria-label="Sponsored offer"
+      className="my-10 flex flex-col justify-between gap-5 rounded-2xl border border-indigo-200 bg-indigo-50 p-6 sm:flex-row sm:items-center"
+    >
       <div>
         <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-          36+ Premium Tools · Group buy offer
+          Sponsored offer · Affiliate link
         </p>
         <h2 className="mt-2 text-xl font-black text-slate-950">
           {toolName
