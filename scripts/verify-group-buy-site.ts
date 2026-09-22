@@ -18,15 +18,14 @@ import {
 const trustPaths = [
   "/about",
   "/affiliate-disclosure",
-  "/editorial-policy",
   "/privacy",
   "/terms",
 ];
 const errors: string[] = [];
 const slugs = new Set(tools.map((tool) => tool.slug));
 
-if (coreSeoPaths.length !== 31)
-  errors.push(`Expected 31 core SEO paths, found ${coreSeoPaths.length}`);
+if (coreSeoPaths.length !== 29)
+  errors.push(`Expected 29 core SEO paths, found ${coreSeoPaths.length}`);
 if (guides.length !== 4)
   errors.push(`Expected 4 group-buy guides, found ${guides.length}`);
 if (primaryTools.length !== 5)
@@ -43,7 +42,7 @@ for (const tool of tools) {
       errors.push(`${tool.slug}: unknown alternative ${alternative}`);
   }
 }
-if (new Set([...coreSeoPaths, ...trustPaths]).size !== 36)
+if (new Set([...coreSeoPaths, ...trustPaths]).size !== 33)
   errors.push("Sitemap route set is not unique");
 if (!publishedProviders.some((provider) => provider.slug === "spybox"))
   errors.push("SpyBox provider page is not published");

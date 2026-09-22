@@ -152,10 +152,15 @@ export default function ComparisonPage({
           {[leftTool, rightTool].map((tool) => (
             <Link
               key={tool.slug}
-              href={`/tools/${tool.slug}`}
+              href={
+                tool.slug === "flikover"
+                  ? "/providers/flikover"
+                  : `/tools/${tool.slug}`
+              }
               className="mt-4 block text-sm font-bold text-indigo-800"
             >
-              {tool.name} tool page →
+              {tool.name} {tool.slug === "flikover" ? "provider" : "tool"} page
+              →
             </Link>
           ))}
         </aside>

@@ -11,13 +11,7 @@ import type { MetadataRoute } from "next";
 const date = "2026-09-21";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const trustPaths = [
-    "/about",
-    "/affiliate-disclosure",
-    "/editorial-policy",
-    "/privacy",
-    "/terms",
-  ];
+  const trustPaths = ["/about", "/affiliate-disclosure", "/privacy", "/terms"];
   const entries = new Map<string, string>(
     [...coreSeoPaths, ...trustPaths].map((path) => [path, date]),
   );
@@ -32,8 +26,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
   for (const comparison of publishedComparisons) {
     entries.set(`/compare/${comparison.slug}`, comparison.lastUpdated);
-    if (comparison.legacyPath)
-      entries.set(comparison.legacyPath, comparison.lastUpdated);
   }
   return Array.from(entries, ([path, lastModified]) => ({
     url: `${siteConfig.url}${path}`,

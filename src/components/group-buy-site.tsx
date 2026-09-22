@@ -1,4 +1,5 @@
 import { AffiliateCTA } from "@/components/group-buy-affiliate";
+import { GroupBuyHeaderDropdown } from "@/components/group-buy-header-dropdown";
 import { spyboxAffiliateUrl } from "@/config/site";
 import type {
   Collection,
@@ -10,8 +11,10 @@ import {
   type Guide,
   type Tool,
   formatPricingLabel,
+  toolMap,
 } from "@/data/group-buy-tools";
 import { formatDate } from "@/lib/group-buy";
+import Image from "next/image";
 import Link from "next/link";
 
 export function JsonLd({
@@ -31,6 +34,53 @@ export function JsonLd({
   );
 }
 
+type HeaderMenuItem = { label: string; href: string };
+
+const headerMenus: Array<{ label: string; items: HeaderMenuItem[] }> = [
+  {
+    label: "Tools",
+    items: [
+      { label: "All Tools", href: "/tools" },
+      { label: "Categories", href: "/categories" },
+      { label: "Collections", href: "/collections" },
+      { label: "Recently Verified", href: "/collections/recently-verified" },
+    ],
+  },
+  {
+    label: "Group Buy Guides",
+    items: [
+      { label: "All Group Buy Guides", href: "/deals" },
+      { label: "Minea Group Buy", href: "/minea-group-buy" },
+      { label: "Kalodata Group Buy", href: "/kalodata-group-buy" },
+      { label: "PiPiADS Group Buy", href: "/pipiads-group-buy" },
+      { label: "Claude Group Buy", href: "/claude-group-buy" },
+    ],
+  },
+  {
+    label: "Alternatives",
+    items: [
+      { label: "All Alternatives", href: "/alternatives" },
+      { label: "Minea Alternatives", href: "/minea-alternative" },
+      { label: "SpyBox Alternatives", href: "/spybox-alternative" },
+    ],
+  },
+  {
+    label: "Providers",
+    items: [
+      { label: "All Providers", href: "/providers" },
+      { label: "SpyBox Review", href: "/providers/spybox" },
+      { label: "Flikover Review", href: "/providers/flikover" },
+    ],
+  },
+  {
+    label: "Compare",
+    items: [
+      { label: "All Comparisons", href: "/compare" },
+      { label: "SpyBox vs Flikover", href: "/compare/spybox-vs-flikover" },
+    ],
+  },
+];
+
 export function GroupBuyHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur">
@@ -39,45 +89,26 @@ export function GroupBuyHeader() {
           href="/"
           className="flex shrink-0 items-center gap-3 font-bricolage text-lg font-black tracking-tight text-slate-950"
         >
-          <span className="grid size-9 place-items-center rounded-lg bg-indigo-600 text-xs text-white">
-            GB
-          </span>
+          <Image
+            src="/android-chrome-512x512.png"
+            alt=""
+            width={36}
+            height={36}
+            className="size-9 rounded-lg object-contain"
+          />
           <span>Group Buy Tools</span>
         </Link>
         <nav
           className="hidden items-center gap-0.5 lg:flex"
           aria-label="Main navigation"
         >
-          <Link
-            href="/tools"
-            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
-          >
-            Tools
-          </Link>
-          <Link
-            href="/deals"
-            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
-          >
-            Group Buy Guides
-          </Link>
-          <Link
-            href="/alternatives"
-            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
-          >
-            Alternatives
-          </Link>
-          <Link
-            href="/providers"
-            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
-          >
-            Providers
-          </Link>
-          <Link
-            href="/compare"
-            className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-indigo-50 hover:text-indigo-700"
-          >
-            Compare
-          </Link>
+          {headerMenus.map((menu) => (
+            <GroupBuyHeaderDropdown
+              key={menu.label}
+              label={menu.label}
+              items={menu.items}
+            />
+          ))}
         </nav>
         <a
           href={spyboxAffiliateUrl}
@@ -95,36 +126,14 @@ export function GroupBuyHeader() {
             className="absolute right-0 top-14 z-50 w-56 rounded-lg border border-border bg-white p-2 shadow-xl"
             aria-label="Mobile navigation"
           >
-            <Link
-              href="/tools"
-              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
-            >
-              Tools
-            </Link>
-            <Link
-              href="/deals"
-              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
-            >
-              Group Buy Guides
-            </Link>
-            <Link
-              href="/alternatives"
-              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
-            >
-              Alternatives
-            </Link>
-            <Link
-              href="/providers"
-              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
-            >
-              Providers
-            </Link>
-            <Link
-              href="/compare"
-              className="block rounded-md px-3 py-3 text-sm font-semibold hover:bg-indigo-50"
-            >
-              Compare
-            </Link>
+            {headerMenus.map((menu) => (
+              <GroupBuyHeaderDropdown
+                key={menu.label}
+                label={menu.label}
+                items={menu.items}
+                mobile
+              />
+            ))}
             <a
               href={spyboxAffiliateUrl}
               target="_blank"
@@ -149,9 +158,13 @@ export function GroupBuyFooter() {
             href="/"
             className="flex items-center gap-3 font-black text-slate-950"
           >
-            <span className="grid size-9 place-items-center rounded-lg bg-indigo-600 text-xs text-white">
-              GB
-            </span>
+            <Image
+              src="/android-chrome-512x512.png"
+              alt=""
+              width={36}
+              height={36}
+              className="size-9 rounded-lg object-contain"
+            />
             <span>Group Buy Tools</span>
           </Link>
           <p className="mt-4 max-w-sm text-sm leading-6 text-muted-foreground">
@@ -178,7 +191,6 @@ export function GroupBuyFooter() {
           title="About"
           links={[
             ["About", "/about"],
-            ["Editorial Policy", "/editorial-policy"],
             ["Affiliate Disclosure", "/affiliate-disclosure"],
           ]}
         />
@@ -283,12 +295,31 @@ export function ToolCard({
   link = true,
 }: { tool: Tool; link?: boolean }) {
   const hasStandalonePage = link || tool.slug === "spybox";
+  const cardHref =
+    tool.slug === "flikover" ? "/providers/flikover" : `/tools/${tool.slug}`;
+  const hasCardLink = hasStandalonePage || tool.slug === "flikover";
   const cardContent = (
-    <>
+    <div
+      className={
+        hasCardLink && !hasStandalonePage ? "pointer-events-none" : undefined
+      }
+    >
       <div className="flex items-start justify-between gap-3">
-        <span className="grid size-10 place-items-center rounded-xl bg-indigo-100 text-xs font-black text-indigo-800">
-          {tool.name.slice(0, 2).toUpperCase()}
-        </span>
+        {tool.logoPath ? (
+          <span className="grid size-10 place-items-center overflow-hidden rounded-xl border border-slate-200 bg-white p-1">
+            <Image
+              src={tool.logoPath}
+              alt=""
+              width={40}
+              height={40}
+              className="size-full object-contain"
+            />
+          </span>
+        ) : (
+          <span className="grid size-10 place-items-center rounded-xl bg-indigo-100 text-xs font-black text-indigo-800">
+            {tool.name.slice(0, 2).toUpperCase()}
+          </span>
+        )}
         <span className="rounded-full border border-slate-200 px-2 py-1 text-[11px] font-bold uppercase tracking-wide text-slate-500">
           {tool.categories[0]}
         </span>
@@ -324,7 +355,7 @@ export function ToolCard({
                 href={tool.affiliateUrl}
                 target="_blank"
                 rel="sponsored noopener noreferrer"
-                className="text-xs font-bold text-indigo-800"
+                className="pointer-events-auto relative z-20 text-xs font-bold text-indigo-800"
               >
                 Open SpyBox Offer ↗
               </a>
@@ -333,14 +364,14 @@ export function ToolCard({
               href={tool.officialUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold text-indigo-800"
+              className="pointer-events-auto relative z-20 text-xs font-bold text-indigo-800"
             >
               Check provider ↗
             </a>
             {tool.slug === "flikover" && (
               <Link
                 href="/providers/flikover"
-                className="text-xs font-bold text-indigo-800"
+                className="pointer-events-auto relative z-20 text-xs font-bold text-indigo-800"
               >
                 Review provider →
               </Link>
@@ -348,35 +379,63 @@ export function ToolCard({
           </div>
         )}
       </div>
-    </>
+    </div>
   );
   const cardClassName =
-    "flex min-h-[250px] flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-500";
-  return hasStandalonePage ? (
-    <Link
-      href={`/tools/${tool.slug}`}
-      aria-label={`Open ${tool.name} tool page`}
-      className={cardClassName}
-    >
+    "flex min-h-[250px] cursor-pointer flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-500 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2";
+  if (hasStandalonePage) {
+    return (
+      <Link
+        href={cardHref}
+        aria-label={`Open ${tool.name} tool page`}
+        className={cardClassName}
+      >
+        {cardContent}
+      </Link>
+    );
+  }
+  return hasCardLink ? (
+    <article className={`${cardClassName} relative`}>
+      <Link
+        href={cardHref}
+        aria-label={`Open ${tool.name} provider review`}
+        className="absolute inset-0 z-0 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-inset"
+      />
       {cardContent}
-    </Link>
+    </article>
   ) : (
     <article className={cardClassName}>{cardContent}</article>
   );
 }
 
 export function ProviderCard({ provider }: { provider: Provider }) {
+  const tool = toolMap[provider.slug];
   return (
     <Link
       href={`/providers/${provider.slug}`}
       className="group rounded-xl border border-slate-300 bg-white p-5 transition hover:border-indigo-500"
     >
-      <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
-        Provider review
-      </p>
-      <h2 className="mt-3 text-xl font-black text-slate-950">
-        {provider.name}
-      </h2>
+      <div className="flex items-start gap-3">
+        {tool?.logoPath ? (
+          <span className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl border border-slate-200 bg-white p-1">
+            <Image
+              src={tool.logoPath}
+              alt=""
+              width={40}
+              height={40}
+              className="size-full object-contain"
+            />
+          </span>
+        ) : null}
+        <div>
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
+            Provider review
+          </p>
+          <h2 className="mt-2 text-xl font-black text-slate-950">
+            {provider.name}
+          </h2>
+        </div>
+      </div>
       <p className="mt-2 text-sm leading-6 text-slate-600">
         {provider.shortDescription}
       </p>
@@ -595,15 +654,27 @@ export function ComparisonTable({
 export function TrustPage({
   title,
   description,
+  lastReviewed,
   children,
-}: { title: string; description: string; children: React.ReactNode }) {
+}: {
+  title: string;
+  description: string;
+  lastReviewed?: string;
+  children: React.ReactNode;
+}) {
   return (
     <>
       <PageHero
         eyebrow="Group Buy Tools"
         title={title}
         description={description}
-      />
+      >
+        {lastReviewed && (
+          <p className="mt-4 text-sm text-slate-500">
+            Last reviewed: {lastReviewed}
+          </p>
+        )}
+      </PageHero>
       <section className="mx-auto w-full max-w-4xl px-5 py-14 sm:px-8">
         <article className="prose-content max-w-none">{children}</article>
       </section>
@@ -612,6 +683,7 @@ export function TrustPage({
 }
 
 export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
+  const primaryKeyword = `${guide.brand} group buy`;
   return (
     <>
       <PageHero
@@ -627,7 +699,11 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
       <section className="mx-auto grid min-w-0 w-full max-w-7xl gap-10 px-5 py-8 sm:px-8 sm:py-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <article className="prose-content guide-prose max-w-none">
           <h2>Quick answer</h2>
-          <p>{guide.verdict}</p>
+          <p>
+            {guide.verdict} This {primaryKeyword} page keeps the official plan,
+            third-party access and alternatives separate so the decision can be
+            checked against a real workflow.
+          </p>
           <AffiliateCTA
             pageType="group_buy"
             pageSlug={guide.slug}
@@ -635,9 +711,9 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           />
           <h2>What this {guide.brand} group buy guide covers</h2>
           <p>
-            This guide separates the official plan from third-party access so
-            you can compare current terms, workflow fit and practical
-            alternatives before paying.
+            Use this {primaryKeyword} guide to separate the official plan from
+            third-party access and compare current terms, workflow fit and
+            practical alternatives before paying.
           </p>
           <h2>Official pricing</h2>
           <div className="mt-4 rounded-xl border border-slate-300 bg-slate-50 p-5">
@@ -665,6 +741,11 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
               )}
             </p>
           </div>
+          <p>
+            For {primaryKeyword} decisions, the price is only one input. Check
+            what the plan includes, who controls the account and which limits
+            apply before treating a lower amount as a saving.
+          </p>
           {tool.spyboxIncluded && (
             <div className="mt-5 rounded-xl border border-indigo-200 bg-indigo-50 p-5">
               <p className="text-xs font-black uppercase tracking-[0.16em] text-indigo-800">
@@ -694,19 +775,26 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           )}
           <p>
             Record the provider page, plan scope and access terms you checked,
-            then compare that dated note again before renewal. A lower price is
-            useful only when the access model supports the work you need.
+            then compare that dated note again before renewal. A{" "}
+            {primaryKeyword}
+            comparison is useful only when the access model supports the work
+            you need, and a lower price alone is not enough.
           </p>
           <h2>Why people search for “{guide.brand} group buy”</h2>
           <p>{guide.why}</p>
           <h2>How group buy access usually works</h2>
           <p>
-            A third-party provider may give several users access to a shared or
-            managed account, or bundle multiple software products. The exact
+            A {primaryKeyword} offer may give several users access to a shared
+            or managed account, or bundle multiple software products. The exact
             account model, session rules, support and provider terms vary. Ask
-            for those details before paying.
+            for those details before paying for a {primaryKeyword} offer.
           </p>
           <h2>Potential risks and limitations</h2>
+          <p>
+            Before paying for {primaryKeyword}, confirm the sessions, usage
+            caps, privacy expectations and interruption process that matter to
+            your work.
+          </p>
           <ul>
             <li>Shared access can create session limits or conflicts.</li>
             <li>Usage caps may differ from an official plan.</li>
@@ -746,7 +834,10 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
             ]}
           />
           <h2>Cheaper alternatives</h2>
-          <p>{guide.alternative}</p>
+          <p>
+            {guide.alternative} Compare {primaryKeyword} with the official plan
+            and alternatives on the same workflow before switching.
+          </p>
           <h2>Who should choose which option?</h2>
           <p>
             Choose an official subscription when you need dependable ownership,
@@ -756,8 +847,9 @@ export function GuidePage({ guide, tool }: { guide: Guide; tool: Tool }) {
           </p>
           <h2>Verdict</h2>
           <p>
-            {guide.verdict} There is no universal safe or guaranteed option;
-            verify current details yourself.
+            {guide.verdict} The right {primaryKeyword} choice depends on the
+            evidence you can verify today. There is no universal safe or
+            guaranteed option; verify current details yourself.
           </p>
           <FAQ items={guide.faq} />
           <Disclosure />

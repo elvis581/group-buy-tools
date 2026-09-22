@@ -43,4 +43,4 @@ SpyBox CTAs use `NEXT_PUBLIC_SPYBOX_AFFILIATE_URL` through the shared `Affiliate
 
 ## SEO files and deployment
 
-`src/app/sitemap.ts` explicitly allow-lists the 15 core SEO routes plus About, Affiliate Disclosure, Editorial Policy, Privacy and Terms. `src/app/robots.ts` publishes the production sitemap URL. Import the repository into Vercel, set the environment variables, attach `group-buy-tools.com`, then submit `/sitemap.xml` in Search Console.
+`src/app/sitemap.ts` explicitly allow-lists the core SEO routes plus About, Affiliate Disclosure, Privacy and Terms. `src/app/robots.ts` publishes the production sitemap URL. Import the repository into Vercel, set the environment variables, attach `group-buy-tools.com`, then submit `/sitemap.xml` in Search Console.

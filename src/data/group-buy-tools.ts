@@ -3,6 +3,7 @@ import { spyboxAffiliateUrl } from "@/config/site";
 export type Tool = {
   slug: string;
   name: string;
+  logoPath?: string;
   shortDescription: string;
   fullDescription: string;
   categories: string[];
@@ -49,6 +50,7 @@ export const tools: Tool[] = [
   {
     slug: "minea",
     name: "Minea",
+    logoPath: "/tool-logos/minea.png",
     shortDescription:
       "Ad spy and product research platform for ecommerce operators.",
     fullDescription:
@@ -91,6 +93,7 @@ export const tools: Tool[] = [
   {
     slug: "kalodata",
     name: "Kalodata",
+    logoPath: "/tool-logos/kalodata.png",
     shortDescription:
       "TikTok Shop analytics and creator-product research platform.",
     fullDescription:
@@ -134,6 +137,7 @@ export const tools: Tool[] = [
   {
     slug: "pipiads",
     name: "PiPiADS",
+    logoPath: "/tool-logos/pipiads.png",
     shortDescription:
       "Ad intelligence platform for TikTok and short-form creative research.",
     fullDescription:
@@ -180,6 +184,7 @@ export const tools: Tool[] = [
   {
     slug: "claude",
     name: "Claude",
+    logoPath: "/tool-logos/claude.png",
     shortDescription:
       "AI assistant for writing, analysis, coding and knowledge work.",
     fullDescription:
@@ -222,6 +227,7 @@ export const tools: Tool[] = [
   {
     slug: "spybox",
     name: "SpyBox",
+    logoPath: "/tool-logos/spybox.png",
     shortDescription:
       "Multi-tool bundle option that may combine access to several software categories.",
     fullDescription:
@@ -266,6 +272,7 @@ export const tools: Tool[] = [
   {
     slug: "flikover",
     name: "Flikover",
+    logoPath: "/tool-logos/flikover.png",
     shortDescription:
       "Third-party software access platform compared with group-buy style services.",
     fullDescription:
@@ -478,8 +485,6 @@ export const coreSeoPaths = [
   ...guides.map((guide) => `/${guide.slug}`),
   "/minea-alternative",
   "/spybox-alternative",
-  "/spybox-vs-flikover",
-  "/spybox-review",
   "/providers",
   "/providers/spybox",
   "/providers/flikover",

@@ -23,8 +23,8 @@ export const siteConfig: SiteConfig = {
   ],
   author: "Group Buy Tools editorial team",
   url: SITE_URL,
-  logo: "/favicon.svg",
-  logoMark: "/favicon.svg",
+  logo: "/android-chrome-512x512.png",
+  logoMark: "/android-chrome-512x512.png",
   // set the logoDark if you have put the logo-dark.png in the public folder
   // logoDark: "/logo-dark.png",
   // please increase the version number when you update the image

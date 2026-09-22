@@ -45,7 +45,7 @@ export const metadata = constructMetadata({
   title: "SpyBox Review: Tools, Pricing, Access Model & Coupon (2026)",
   description:
     "Review SpyBox's public tool directory, current pricing, access questions, 10% coupon code and fit for ecommerce and AI workflows.",
-  canonicalUrl: `${siteConfig.url}/spybox-review`,
+  canonicalUrl: `${siteConfig.url}/providers/spybox`,
   primaryKeyword: "SpyBox review",
 });
 
