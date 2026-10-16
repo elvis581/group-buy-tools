@@ -1,18 +1,20 @@
+import sitemap from "../src/app/sitemap";
 import {
   categories,
   collections,
   comparisons,
+  offers,
+  providerMap,
   publishedCategories,
   publishedCollections,
   publishedComparisons,
   publishedProviders,
-  offers,
-  providerMap,
 } from "../src/data/group-buy-directory";
 import {
   coreSeoPaths,
   guides,
   primaryTools,
+  toolMap,
   tools,
 } from "../src/data/group-buy-tools";
 
@@ -38,8 +40,61 @@ for (const tool of tools) {
       errors.push(`${tool.slug}: unknown alternative ${alternative}`);
   }
 }
-if (new Set([...coreSeoPaths, ...trustPaths]).size !== 35)
-  errors.push("Sitemap route set is not unique");
+const sitemapPaths = sitemap().map((entry) => new URL(entry.url).pathname);
+const expectedPaths = new Set([
+  ...coreSeoPaths,
+  ...trustPaths,
+  ...publishedComparisons.map((item) => `/compare/${item.slug}`),
+]);
+if (
+  sitemapPaths.length !== new Set(sitemapPaths).size ||
+  sitemapPaths.length !== expectedPaths.size
+)
+  errors.push("Sitemap duplicates or missing routes");
+for (const path of Array.from(expectedPaths))
+  if (!sitemapPaths.includes(path))
+    errors.push(`Missing sitemap route ${path}`);
+const comparisonTitles = new Set<string>();
+const comparisonDescriptions = new Set<string>();
+for (const comparison of publishedComparisons) {
+  if (
+    comparisonTitles.has(comparison.title) ||
+    comparisonDescriptions.has(comparison.description)
+  )
+    errors.push(`${comparison.slug}: duplicate metadata`);
+  comparisonTitles.add(comparison.title);
+  comparisonDescriptions.add(comparison.description);
+  const article = comparison.article;
+  if (!article) continue;
+  const entities = article.kind === "provider" ? providerMap : toolMap;
+  for (const slug of article.sides)
+    if (!entities[slug])
+      errors.push(`${comparison.slug}: unknown ${article.kind} ${slug}`);
+  const declared =
+    article.kind === "provider"
+      ? comparison.providerSlugs
+      : comparison.toolSlugs;
+  if (article.sides.join() !== declared.join())
+    errors.push(`${comparison.slug}: inconsistent entity order`);
+  if (article.rows.some((row) => row.length !== 3 || row.some((cell) => !cell)))
+    errors.push(`${comparison.slug}: incomplete comparison table`);
+  if (
+    new Set(article.faq.map((item) => item.question)).size !==
+    article.faq.length
+  )
+    errors.push(`${comparison.slug}: duplicate FAQs`);
+  for (const source of article.sources)
+    if (
+      !source.url.startsWith("https://") ||
+      !source.checkedAt ||
+      !source.finding
+    )
+      errors.push(`${comparison.slug}: incomplete evidence`);
+  for (const link of article.related)
+    if (!expectedPaths.has(link.href))
+      errors.push(`${comparison.slug}: invalid internal link ${link.href}`);
+}
+
 for (const providerSlug of ["spybox", "toolsurf", "toolzbuy"]) {
   const provider = providerMap[providerSlug];
   if (!provider?.published)
@@ -78,5 +133,5 @@ if (errors.length) {
 }
 
 console.log(
-  `Group Buy Tools verification passed: ${coreSeoPaths.length} core SEO paths, ${trustPaths.length} trust pages, ${tools.length} tool records.`,
+  `Group Buy Tools verification passed: ${sitemapPaths.length} sitemap URLs, ${publishedComparisons.length} comparisons, ${tools.length} tool records.`,
 );

@@ -11,6 +11,7 @@ import { siteConfig } from "@/config/site";
 import {
   offersForProvider,
   providerMap,
+  publishedComparisons,
   publishedProviders,
 } from "@/data/group-buy-directory";
 import { toolMap } from "@/data/group-buy-tools";
@@ -202,6 +203,12 @@ export default function ProviderPage({ params }: { params: { slug: string } }) {
         <div className="mt-5">
           <RelatedPages
             links={[
+              ...publishedComparisons
+                .filter((item) => item.providerSlugs.includes(provider.slug))
+                .map((item) => ({
+                  href: `/compare/${item.slug}`,
+                  label: item.title,
+                })),
               ...listedTools.slice(0, 3).map((tool) => ({
                 href: `/tools/${tool.slug}`,
                 label: `${tool.name} tool page`,

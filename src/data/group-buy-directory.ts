@@ -1,4 +1,8 @@
 import { spyboxAffiliateUrl } from "@/config/site";
+import {
+  type ComparisonArticle,
+  p1Comparisons,
+} from "@/data/group-buy-comparisons";
 import { spyboxDirectory, toolMap } from "@/data/group-buy-tools";
 
 export type VerificationStatus =
@@ -84,6 +88,7 @@ export type Comparison = {
   lastUpdated: string;
   published: boolean;
   legacyPath?: string;
+  article?: ComparisonArticle;
 };
 
 const spyboxSource: Source = {
@@ -148,12 +153,12 @@ export const providers: Provider[] = [
       "A provider-reported multi-tool access service advertising ecommerce, SEO and AI tools.",
     publicToolCount: "100+ tools advertised on the public homepage",
     startingPrice:
-      "$1.99/month advertised on the homepage; product pages may show different prices",
-    billingCycle:
-      "Monthly plans advertised; confirm the selected product and checkout cycle",
+      "Solo $9.99 or Agency $19 per 28 days; tool inclusion varies by plan",
+    billingCycle: "Renews every 28 days, not once per calendar month",
     accessMethod:
-      "Instant access/provider login is advertised; the account model is not independently confirmed",
-    refundPolicy: "Not publicly confirmed in the checked product pages",
+      "Cloud dashboard with no downloads or shared passwords advertised; not independently tested",
+    refundPolicy:
+      "Conditional 24-hour refund message on homepage; verify eligibility",
     supportChannels: [
       "Provider support widget",
       "Support email on provider site",
@@ -163,17 +168,17 @@ export const providers: Provider[] = [
       {
         label: "Toolsurf homepage",
         url: "https://www.toolsurf.com/",
-        checkedAt: "2026-09-22",
+        checkedAt: "2026-10-16",
         sourceType: "provider",
       },
       {
         label: "Toolsurf Minea product page",
         url: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
-        checkedAt: "2026-09-22",
-        sourceType: "official-product",
+        checkedAt: "2026-10-16",
+        sourceType: "provider",
       },
     ],
-    lastVerified: "2026-09-22",
+    lastVerified: "2026-10-16",
     published: true,
   },
   {
@@ -267,9 +272,9 @@ export const offers: Offer[] = [
     id: "toolsurf-minea",
     toolSlug: "minea",
     providerSlug: "toolsurf",
-    price: "$0.99 displayed product price; verify checkout",
+    price: "$0.99 in product body; title says $3/mo; confirm checkout",
     billingCycle:
-      "Monthly product price displayed; checkout cycle requires confirmation",
+      "Product billing period unresolved; homepage bundles renew every 28 days",
     accessMethod:
       "Instant access/provider login advertised; account model not independently confirmed",
     limits: [
@@ -277,15 +282,15 @@ export const offers: Offer[] = [
     ],
     availability: "provider-reported",
     sourceUrl: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
-    lastVerified: "2026-09-22",
+    lastVerified: "2026-10-16",
   },
   {
     id: "toolsurf-kalodata",
     toolSlug: "kalodata",
     providerSlug: "toolsurf",
-    price: "$0.99 displayed product price; verify checkout",
+    price: "$0.99 in product body; title says $3/mo; confirm checkout",
     billingCycle:
-      "Monthly product price displayed; checkout cycle requires confirmation",
+      "Product billing period unresolved; homepage bundles renew every 28 days",
     accessMethod:
       "Instant access/provider login advertised; account model not independently confirmed",
     limits: [
@@ -293,15 +298,15 @@ export const offers: Offer[] = [
     ],
     availability: "provider-reported",
     sourceUrl: "https://www.toolsurf.com/seo-tools/kalodata-group-buy/",
-    lastVerified: "2026-09-22",
+    lastVerified: "2026-10-16",
   },
   {
     id: "toolsurf-pipiads",
     toolSlug: "pipiads",
     providerSlug: "toolsurf",
-    price: "$0.99 displayed product price; verify checkout",
+    price: "$0.99 in product body; title says $3/mo; confirm checkout",
     billingCycle:
-      "Monthly product price displayed; checkout cycle requires confirmation",
+      "Product billing period unresolved; homepage bundles renew every 28 days",
     accessMethod:
       "Instant access/provider login advertised; account model not independently confirmed",
     limits: [
@@ -309,15 +314,15 @@ export const offers: Offer[] = [
     ],
     availability: "provider-reported",
     sourceUrl: "https://www.toolsurf.com/seo-tools/pipiads-group-buy/",
-    lastVerified: "2026-09-22",
+    lastVerified: "2026-10-16",
   },
   {
     id: "toolsurf-claude",
     toolSlug: "claude",
     providerSlug: "toolsurf",
-    price: "$0.99 displayed product price; verify checkout",
+    price: "$0.99 in product body; title says $3/mo; confirm checkout",
     billingCycle:
-      "Monthly product price displayed; checkout cycle requires confirmation",
+      "Product billing period unresolved; homepage bundles renew every 28 days",
     accessMethod:
       "Instant access/provider login advertised; account model not independently confirmed",
     limits: [
@@ -325,7 +330,7 @@ export const offers: Offer[] = [
     ],
     availability: "provider-reported",
     sourceUrl: "https://www.toolsurf.com/seo-tools/claude-ai-group-buy/",
-    lastVerified: "2026-09-22",
+    lastVerified: "2026-10-16",
   },
   {
     id: "toolzbuy-claude",
@@ -422,6 +427,7 @@ export const collections: Collection[] = [
 ];
 
 export const comparisons: Comparison[] = [
+  ...p1Comparisons,
   {
     slug: "spybox-vs-flikover",
     title: "SpyBox vs Flikover",

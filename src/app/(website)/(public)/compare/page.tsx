@@ -10,9 +10,9 @@ import { breadcrumbSchema, itemListSchema } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
 
 export const metadata = constructMetadata({
-  title: "Tool Comparisons: Group Buy Providers & Access Models",
+  title: "Compare Research Tools & Group Buy Providers",
   description:
-    "Compare published group-buy providers and tool access models by pricing, library, limits, support and workflow fit.",
+    "Compare ecommerce research tools and group-buy providers by workflow, price, billing period, access limits and source-backed evidence.",
   canonicalUrl: `${siteConfig.url}/compare`,
   primaryKeyword: "group buy comparison",
 });
@@ -21,8 +21,9 @@ export default function ComparePage() {
   return (
     <>
       <PageHero
+        compact
         eyebrow="Comparison directory"
-        title="Compare Providers and Tool Access Models"
+        title="Compare Research Tools and Access Providers"
         description="Head-to-head decision pages that keep pricing, public evidence, limits and workflow fit in the same frame."
       />
       <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">
@@ -32,11 +33,30 @@ export default function ComparePage() {
           not turn an unconfirmed feature or price into a claim, and they do not
           rank a provider without current evidence.
         </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {publishedComparisons.map((comparison) => (
-            <ComparisonCard key={comparison.slug} comparison={comparison} />
-          ))}
-        </div>
+        {(["provider", "tool"] as const).map((kind) => (
+          <section key={kind} className="mt-8">
+            <h2 className="text-2xl font-black">
+              {kind === "provider"
+                ? "Provider comparisons"
+                : "Tool comparisons"}
+            </h2>
+            <p className="mt-2 text-slate-600">
+              {kind === "provider"
+                ? "Compare what a bundle includes, how it renews and the rules for access."
+                : "Choose the research product that fits your ad, store or creator workflow."}
+            </p>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              {publishedComparisons
+                .filter((item) => (item.article?.kind ?? "provider") === kind)
+                .map((comparison) => (
+                  <ComparisonCard
+                    key={comparison.slug}
+                    comparison={comparison}
+                  />
+                ))}
+            </div>
+          </section>
+        ))}
       </section>
       <JsonLd
         id="compare-breadcrumb"

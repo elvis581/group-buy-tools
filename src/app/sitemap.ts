@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const entries = new Map<string, string>(
     [...coreSeoPaths, ...trustPaths].map((path) => [path, date]),
   );
+  entries.set("/compare", "2026-10-16");
   for (const provider of publishedProviders) {
     entries.set(`/providers/${provider.slug}`, provider.lastVerified);
   }
@@ -28,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.set(`/compare/${comparison.slug}`, comparison.lastUpdated);
   }
   return Array.from(entries, ([path, lastModified]) => ({
-    url: `${siteConfig.url}${path}`,
+    url: path === "/" ? siteConfig.url : `${siteConfig.url}${path}`,
     lastModified,
   }));
 }

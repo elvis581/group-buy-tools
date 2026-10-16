@@ -8,7 +8,11 @@ import {
   RelatedPages,
 } from "@/components/group-buy-site";
 import { siteConfig } from "@/config/site";
-import { offersForTool, providerMap } from "@/data/group-buy-directory";
+import {
+  offersForTool,
+  providerMap,
+  publishedComparisons,
+} from "@/data/group-buy-directory";
 import {
   formatPricingLabel,
   primaryTools,
@@ -297,6 +301,14 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
       <section className="mx-auto w-full max-w-7xl px-5 pb-14 sm:px-8">
         <h2 className="text-2xl font-black">Related pages</h2>
         <div className="mt-5">
+          <RelatedPages
+            links={publishedComparisons
+              .filter((item) => item.toolSlugs.includes(tool.slug))
+              .map((item) => ({
+                href: `/compare/${item.slug}`,
+                label: item.title,
+              }))}
+          />
           <RelatedPages
             links={
               tool.slug === "minea"

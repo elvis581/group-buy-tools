@@ -42,7 +42,6 @@ export function GroupBuyHeaderDropdown({
       className={`group relative ${mobile ? "" : "h-16"}`}
       onMouseEnter={mobile ? undefined : () => setOpen(true)}
       onMouseLeave={mobile ? undefined : () => setOpen(false)}
-      onFocus={() => setOpen(true)}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
           setOpen(false);
@@ -133,9 +132,10 @@ export function GroupBuyMobileMenu({
         Menu
       </button>
       {open && (
+        // biome-ignore lint/a11y/useKeyWithClickEvents: Native links also dispatch click on keyboard activation; this delegated handler only closes the panel.
         <nav
           id={menuId}
-          className="absolute right-0 top-14 z-50 w-56 rounded-lg border border-border bg-white p-2 shadow-xl"
+          className="absolute right-0 top-14 z-50 max-h-[calc(100dvh-5rem)] w-56 overflow-y-auto overscroll-contain rounded-lg border border-border bg-white p-2 shadow-xl"
           aria-label="Mobile navigation"
           onClick={(event) => {
             if ((event.target as HTMLElement).closest("a")) setOpen(false);

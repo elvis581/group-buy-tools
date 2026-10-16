@@ -10,6 +10,7 @@ import {
   type Provider,
   offersForTool,
   providerMap,
+  publishedComparisons,
 } from "@/data/group-buy-directory";
 import type {
   Collection,
@@ -85,7 +86,10 @@ const headerMenus: HeaderMenu[] = [
     label: "Compare",
     items: [
       { label: "All Comparisons", href: "/compare" },
-      { label: "SpyBox vs Flikover", href: "/compare/spybox-vs-flikover" },
+      ...publishedComparisons.map((comparison) => ({
+        label: comparison.title,
+        href: `/compare/${comparison.slug}`,
+      })),
     ],
   },
 ];

@@ -1,4 +1,5 @@
 import { AffiliateCTA } from "@/components/group-buy-affiliate";
+import { ComparisonArticlePage } from "@/components/group-buy-comparison-article";
 import {
   Breadcrumbs,
   ComparisonTable,
@@ -30,7 +31,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   const comparison = comparisonMap[params.slug];
   if (!comparison?.published) return {};
   return constructMetadata({
-    title: `${comparison.title}: Pricing, Limits & Workflow Fit`,
+    title:
+      comparison.article?.metaTitle ??
+      `${comparison.title}: Pricing, Limits & Workflow Fit`,
     description: comparison.description,
     canonicalUrl: `${siteConfig.url}/compare/${comparison.slug}`,
     primaryKeyword: comparison.title,
@@ -42,6 +45,13 @@ export default function ComparisonPage({
 }: { params: { slug: string } }) {
   const comparison = comparisonMap[params.slug];
   if (!comparison?.published) notFound();
+  if (comparison.article)
+    return (
+      <ComparisonArticlePage
+        comparison={comparison}
+        article={comparison.article}
+      />
+    );
   const [left, right] = comparison.providerSlugs.map(
     (slug) => providerMap[slug],
   );
