@@ -1,4 +1,5 @@
 import { AffiliateCTA } from "@/components/group-buy-affiliate";
+import { GroupBuyEditorialPage } from "@/components/group-buy-editorial-page";
 import {
   Breadcrumbs,
   Disclosure,
@@ -15,6 +16,7 @@ import {
   publishedProviders,
 } from "@/data/group-buy-directory";
 import { toolMap } from "@/data/group-buy-tools";
+import { spyboxReview, toolzbuyReview } from "@/data/group-buy-weekly-pages";
 import { breadcrumbSchema, faqSchema, formatDate } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
 import Link from "next/link";
@@ -29,9 +31,19 @@ export const dynamicParams = false;
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const provider = providerMap[params.slug];
   if (!provider?.published) return {};
+  const article =
+    params.slug === "spybox"
+      ? spyboxReview
+      : params.slug === "toolzbuy"
+        ? toolzbuyReview
+        : undefined;
   return constructMetadata({
-    title: `${provider.name} Review: Pricing, Tools, Access & Support`,
-    description: `${provider.shortDescription} Review public pricing, tool coverage, access model, limits, support and source notes for ${provider.name}.`,
+    title:
+      article?.metaTitle ??
+      `${provider.name} Review: Pricing, Tools, Access & Support`,
+    description:
+      article?.description ??
+      `${provider.shortDescription} Review public pricing, tool coverage, access model, limits, support and source notes for ${provider.name}.`,
     canonicalUrl: `${siteConfig.url}/providers/${provider.slug}`,
     primaryKeyword: `${provider.name} review`,
   });
@@ -40,6 +52,10 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 export default function ProviderPage({ params }: { params: { slug: string } }) {
   const provider = providerMap[params.slug];
   if (!provider?.published) notFound();
+  if (provider.slug === "spybox")
+    return <GroupBuyEditorialPage page={spyboxReview} />;
+  if (provider.slug === "toolzbuy")
+    return <GroupBuyEditorialPage page={toolzbuyReview} />;
   const offers = offersForProvider(provider.slug);
   const listedTools = offers
     .map((offer) => toolMap[offer.toolSlug])

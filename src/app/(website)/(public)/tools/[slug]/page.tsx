@@ -268,7 +268,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
                     : tool.slug === "claude"
                       ? "/claude-group-buy"
                       : tool.slug === "spybox"
-                        ? "/spybox-review"
+                        ? "/providers/spybox"
                         : "/alternatives"
             }
             className="mt-4 block text-sm font-bold text-indigo-800"
@@ -320,7 +320,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
                   ]
                 : tool.slug === "spybox"
                   ? [
-                      { href: "/spybox-review", label: "SpyBox Review" },
+                      { href: "/providers/spybox", label: "SpyBox Review" },
                       {
                         href: "/spybox-alternative",
                         label: "SpyBox Alternatives",

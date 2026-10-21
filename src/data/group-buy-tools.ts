@@ -1,4 +1,5 @@
 import { spyboxAffiliateUrl } from "@/config/site";
+import { evidenceDate, spyboxFacts } from "@/data/group-buy-evidence";
 
 export type Tool = {
   slug: string;
@@ -33,17 +34,9 @@ export type Tool = {
 
 export const spyboxToolsUrl = "https://spybox.io/tools";
 export const spyboxDirectory = {
-  toolCount: 36,
-  lastChecked: "2026-09-21",
+  catalogNote: spyboxFacts.catalog,
+  lastChecked: evidenceDate,
   sourceUrl: spyboxToolsUrl,
-  categories: [
-    { name: "Products & Sales Tracking", count: 13 },
-    { name: "AI Media Creations", count: 6 },
-    { name: "Ads & Creative Spy", count: 6 },
-    { name: "AI Assistants", count: 5 },
-    { name: "Design & Content", count: 4 },
-    { name: "Amazon & SEO", count: 2 },
-  ],
 };
 
 export const tools: Tool[] = [
@@ -64,7 +57,7 @@ export const tools: Tool[] = [
       summary:
         "Starter $49/month, Premium $99/month and Business $199/month. Quarterly billing displays $39, $79 and $158 per month respectively.",
       sourceUrl: "https://www.minea.com/pricing",
-      lastChecked: "2026-09-20",
+      lastChecked: evidenceDate,
       notes:
         "Official pricing can change; confirm the plan and billing cycle before purchase.",
       confirmed: true,
@@ -87,8 +80,8 @@ export const tools: Tool[] = [
     competitors: ["PiPiADS", "Kalodata"],
     spyboxIncluded: true,
     spyboxSourceUrl: spyboxToolsUrl,
-    spyboxLastChecked: "2026-09-21",
-    lastVerified: "2026-09-20",
+    spyboxLastChecked: evidenceDate,
+    lastVerified: evidenceDate,
   },
   {
     slug: "kalodata",
@@ -131,7 +124,7 @@ export const tools: Tool[] = [
     competitors: ["Minea", "PiPiADS"],
     spyboxIncluded: true,
     spyboxSourceUrl: spyboxToolsUrl,
-    spyboxLastChecked: "2026-09-21",
+    spyboxLastChecked: evidenceDate,
     lastVerified: "2026-09-20",
   },
   {
@@ -139,7 +132,7 @@ export const tools: Tool[] = [
     name: "PiPiADS",
     logoPath: "/tool-logos/pipiads.png",
     shortDescription:
-      "Ad intelligence platform for TikTok and short-form creative research.",
+      "Ad intelligence for TikTok and Facebook creative and advertiser research.",
     fullDescription:
       "PiPiADS helps marketers study short-form ad creative and product signals. This overview separates the research workflow from questions about shared access.",
     categories: ["Ad Spy", "TikTok", "Ecommerce"],
@@ -151,7 +144,7 @@ export const tools: Tool[] = [
       summary:
         "The current official homepage display shows Trial $0, Basic $49/month, Advanced $99/month, Enterprise $900/month and Flexible $180/month.",
       sourceUrl: "https://www.pipiads.com/",
-      lastChecked: "2026-09-20",
+      lastChecked: evidenceDate,
       notes:
         "The page also shows promotional/list prices; confirm the live checkout amount and credits before purchase.",
       confirmed: true,
@@ -178,8 +171,8 @@ export const tools: Tool[] = [
     competitors: ["Minea", "Kalodata"],
     spyboxIncluded: true,
     spyboxSourceUrl: spyboxToolsUrl,
-    spyboxLastChecked: "2026-09-21",
-    lastVerified: "2026-09-20",
+    spyboxLastChecked: evidenceDate,
+    lastVerified: evidenceDate,
   },
   {
     slug: "claude",
@@ -221,7 +214,7 @@ export const tools: Tool[] = [
     competitors: ["ChatGPT", "Gemini"],
     spyboxIncluded: true,
     spyboxSourceUrl: spyboxToolsUrl,
-    spyboxLastChecked: "2026-09-21",
+    spyboxLastChecked: evidenceDate,
     lastVerified: "2026-09-20",
   },
   {
@@ -242,7 +235,7 @@ export const tools: Tool[] = [
       summary:
         "The current SpyBox offer shows €29.99/month or €249.99/year for the all-inclusive plan.",
       sourceUrl: "https://spybox.io/api/prices",
-      lastChecked: "2026-09-20",
+      lastChecked: evidenceDate,
       notes:
         "Confirm the final currency, taxes, included tools and cancellation terms on the checkout page.",
       confirmed: true,
@@ -262,12 +255,12 @@ export const tools: Tool[] = [
       "One destination for bundle research",
     ],
     cons: [
-      "Library and limits are not independently confirmed",
+      "Catalog counts conflict; confirm the named tools and SBC costs",
       "Shared access can involve interruptions and privacy trade-offs",
     ],
     alternatives: ["Flikover"],
     competitors: ["Flikover"],
-    lastVerified: "2026-09-20",
+    lastVerified: evidenceDate,
   },
   {
     slug: "flikover",
@@ -283,13 +276,17 @@ export const tools: Tool[] = [
       summary:
         "The public Flikover page says billing is a one-time payment for a specific month, but it does not publish the amount before sign-up.",
       sourceUrl: "https://flikover.com/",
-      lastChecked: "2026-09-20",
+      lastChecked: evidenceDate,
       notes:
         "Confirm the dashboard price, included tools, refund terms and month covered before purchase.",
       confirmed: false,
     },
     bestFor: ["Access-platform comparisons", "Bundle research"],
-    features: ["Third-party access model", "Multi-category positioning"],
+    features: [
+      "Cloud-based shared access",
+      "35+ tools advertised",
+      "One-time payment for a specific month",
+    ],
     pros: ["Useful comparison point", "May suit readers seeking a bundle"],
     cons: [
       "Current service details are not independently confirmed",
@@ -297,7 +294,7 @@ export const tools: Tool[] = [
     ],
     alternatives: ["SpyBox"],
     competitors: ["SpyBox"],
-    lastVerified: "2026-09-20",
+    lastVerified: evidenceDate,
   },
 ];
 

@@ -32,6 +32,7 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
     description: category.description,
     canonicalUrl: `${siteConfig.url}/categories/${category.slug}`,
     primaryKeyword: category.name,
+    noIndex: category.indexable === false,
   });
 }
 

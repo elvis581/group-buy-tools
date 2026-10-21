@@ -152,7 +152,7 @@ export function GroupBuyMobileMenu({
           <a
             href={offerHref}
             target="_blank"
-            rel="sponsored noopener noreferrer"
+            rel="sponsored nofollow noopener noreferrer"
             className="block rounded-md bg-indigo-50 px-3 py-3 text-sm font-bold text-indigo-800"
           >
             Open SpyBox Offer ↗

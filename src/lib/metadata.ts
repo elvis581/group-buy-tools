@@ -22,15 +22,12 @@ export function constructMetadata({
   return {
     title: fullTitle,
     description,
-    keywords: primaryKeyword
-      ? Array.from(
-          new Set([
-            primaryKeyword,
-            ...additionalKeywords,
-            ...siteConfig.keywords,
-          ]),
-        )
-      : Array.from(new Set([...additionalKeywords, ...siteConfig.keywords])),
+    keywords: Array.from(
+      new Set([
+        ...(primaryKeyword ? [primaryKeyword] : []),
+        ...additionalKeywords,
+      ]),
+    ),
     creator: siteConfig.author,
     authors: [{ name: siteConfig.author }],
     alternates: canonicalUrl ? { canonical: canonicalUrl } : undefined,

@@ -11,11 +11,11 @@ import { guides } from "@/data/group-buy-tools";
 import { breadcrumbSchema, faqSchema, itemListSchema } from "@/lib/group-buy";
 import { constructMetadata } from "@/lib/metadata";
 export const metadata = constructMetadata({
-  title: "Group Buy Tools & Cheaper Software Access Guides",
+  title: "Software Group Buy Guides: Prices, Offers & Access Rules",
   description:
-    "Compare official subscriptions, third-party access models, cheaper alternatives and multi-tool bundles.",
+    "Compare Minea, Kalodata, PiPiADS and Claude group-buy options with official plans. Check prices, access limits and provider terms before choosing.",
   canonicalUrl: `${siteConfig.url}/deals`,
-  primaryKeyword: "group buy tools",
+  primaryKeyword: "software group buy guides",
 });
 const faqs = [
   {
@@ -35,7 +35,7 @@ const faqs = [
       "Do not assume that it does. A third-party access model can have a different library, session limit, support path or interruption policy, so verify the exact offer.",
   },
   {
-    question: "When should I return to a group buy tools guide?",
+    question: "When should I recheck a software group-buy offer?",
     answer:
       "Recheck the guide before a recurring purchase, after a provider changes its terms, or when your workflow starts using more data, sessions or confidential research.",
   },
@@ -49,8 +49,9 @@ export default function DealsPage() {
   return (
     <>
       <PageHero
+        compact
         eyebrow="Compare access models"
-        title="Group Buy Tools & Cheaper Access Guides"
+        title="Software Group Buy Guides"
         description="Group buy does not automatically mean an official discount. These guides help you compare official subscriptions, shared-access models, alternatives and multi-tool bundles."
       />
       <section className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8">

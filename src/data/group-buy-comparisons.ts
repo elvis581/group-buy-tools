@@ -1,4 +1,9 @@
 import type { Comparison } from "@/data/group-buy-directory";
+import {
+  evidenceDate,
+  spyboxFacts,
+  weeklySources,
+} from "@/data/group-buy-evidence";
 
 export type ComparisonEvidence = {
   label: string;
@@ -28,41 +33,11 @@ export type ComparisonArticle = {
 
 const checkedAt = "2026-10-16";
 const evidence = {
-  spybox: {
-    label: "SpyBox live price endpoint",
-    url: "https://spybox.io/api/prices",
-    checkedAt,
-    finding:
-      "Lists EUR 29.99 monthly and EUR 249.99 annually for the all-inclusive product. Checkout taxes and account-specific conditions were not tested.",
-  },
-  spyboxTools: {
-    label: "SpyBox rendered tool directory",
-    url: "https://spybox.io/tools",
-    checkedAt,
-    finding:
-      "The directory heading shows 33+ tools; a separate promotion banner says 40+ and refers to April 30. The conflicting counts and dated promotion are not used as a savings or availability guarantee.",
-  },
-  toolsurf: {
-    label: "Toolsurf homepage plans and access FAQ",
-    url: "https://www.toolsurf.com/",
-    checkedAt,
-    finding:
-      "Solo $9.99 and Agency $19 per 28 days, credit-based selection, cloud dashboard, and a conditional 24-hour refund message are provider statements.",
-  },
-  toolsurfMinea: {
-    label: "Toolsurf Minea product listing",
-    url: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
-    checkedAt,
-    finding:
-      "Product body displays $0.99 while its title advertises $3/mo. Neither establishes the checkout amount or billing period.",
-  },
-  toolzbuy: {
-    label: "ToolzBuy pricing and account FAQ",
-    url: "https://toolzbuy.com/",
-    checkedAt,
-    finding:
-      "Advertises plans from ₹249/month, Advance at ₹549/month, shared master subscriptions with isolated sessions, same-city access rules, and a 48-hour refund policy subject to eligibility.",
-  },
+  spybox: weeklySources.spybox,
+  spyboxTools: weeklySources.spyboxTools,
+  toolsurf: weeklySources.toolsurf,
+  toolsurfMinea: weeklySources.toolsurfMinea,
+  toolzbuy: weeklySources.toolzbuy,
   minea: {
     label: "Minea official product overview",
     url: "https://www.minea.com/",
@@ -109,7 +84,7 @@ export const p1Comparisons: Comparison[] = [
     ],
     verdict:
       "Shortlist SpyBox for a single multi-tool bundle when its listed tools match your work. Shortlist Toolsurf when its named plan and credits cover your specific stack. Confirm inclusion before comparing the headline prices.",
-    lastUpdated: checkedAt,
+    lastUpdated: evidenceDate,
     published: true,
     article: {
       kind: "provider",
@@ -125,6 +100,11 @@ export const p1Comparisons: Comparison[] = [
       tableTitle: "Compare what the subscription actually buys",
       rows: [
         [
+          "Usage and credit limits",
+          `${spyboxFacts.credits} Overages can remain payable; monthly credits do not roll over.`,
+          "Confirm the per-tool allowances of the selected plan",
+        ],
+        [
           "Displayed base offer",
           "€29.99/month or €249.99/year",
           "Solo $9.99 or Agency $19 per 28 days",
@@ -136,17 +116,17 @@ export const p1Comparisons: Comparison[] = [
         ],
         [
           "Catalog evidence",
-          "Directory heading: 33+; banner: 40+. Counts conflict",
+          spyboxFacts.catalog,
           "100+ advertised tools; catalog size is not plan entitlement",
         ],
         [
           "Account delivery",
-          "Exact account and session rules not established by the directory",
+          spyboxFacts.access,
           "Cloud dashboard and no shared passwords claimed by provider",
         ],
         [
           "Refund evidence",
-          "Eligibility not established by the sources checked",
+          spyboxFacts.refunds,
           "Homepage advertises a conditional 24-hour refund; check policy",
         ],
       ],
@@ -198,6 +178,7 @@ export const p1Comparisons: Comparison[] = [
         },
       ],
       sources: [
+        weeklySources.spyboxTerms,
         evidence.spybox,
         evidence.spyboxTools,
         evidence.toolsurf,
@@ -220,7 +201,7 @@ export const p1Comparisons: Comparison[] = [
     dimensions: ["Plan inclusion", "Currency", "Location rules", "Sessions"],
     verdict:
       "Shortlist SpyBox for a euro-priced bundle of the tools you need. ToolzBuy deserves a closer look for INR billing and its named tool plans, provided its location and session rules fit how you work.",
-    lastUpdated: checkedAt,
+    lastUpdated: evidenceDate,
     published: true,
     article: {
       kind: "provider",
@@ -236,6 +217,11 @@ export const p1Comparisons: Comparison[] = [
       tableTitle: "Currency and account rules change the decision",
       rows: [
         [
+          "Usage and credit limits",
+          `${spyboxFacts.credits} Overages can remain payable; monthly credits do not roll over.`,
+          "Confirm the per-tool allowances of the selected plan",
+        ],
+        [
           "Displayed offer",
           "€29.99/month; €249.99/year",
           "Plans from ₹249/month; Advance advertised at ₹549/month",
@@ -247,7 +233,7 @@ export const p1Comparisons: Comparison[] = [
         ],
         [
           "Session model",
-          "Not established by the checked directory",
+          spyboxFacts.access,
           "Shared master subscriptions with isolated member sessions, provider-claimed",
         ],
         [
@@ -262,7 +248,7 @@ export const p1Comparisons: Comparison[] = [
         ],
         [
           "Refunds",
-          "Eligibility not verified in this comparison",
+          spyboxFacts.refunds,
           "48-hour policy advertised; exact eligibility must be checked",
         ],
       ],
@@ -320,7 +306,12 @@ export const p1Comparisons: Comparison[] = [
             "The sources checked do not establish that. Missing policy detail is an unresolved question, not evidence of unrestricted use.",
         },
       ],
-      sources: [evidence.spybox, evidence.spyboxTools, evidence.toolzbuy],
+      sources: [
+        weeklySources.spyboxTerms,
+        evidence.spybox,
+        evidence.spyboxTools,
+        evidence.toolzbuy,
+      ],
       related: [
         { href: "/spybox-alternative", label: "Other SpyBox alternatives" },
         {
@@ -346,7 +337,7 @@ export const p1Comparisons: Comparison[] = [
     ],
     verdict:
       "Choose a Toolsurf plan to investigate when its included tools and selectable credits match a changing stack. Investigate ToolzBuy when its named INR plan covers a stable stack and its location rules fit your work.",
-    lastUpdated: checkedAt,
+    lastUpdated: evidenceDate,
     published: true,
     article: {
       kind: "provider",
@@ -532,6 +523,13 @@ export const p1Comparisons: Comparison[] = [
             "PiPiADS also displays list prices and an annual promotion; Minea displays quarterly equivalents. Use the monthly checkout when comparing monthly commitments, and recheck any promotional conditions.",
           ],
         },
+        {
+          heading: "A kitchen-storage launch needs two different briefs",
+          paragraphs: [
+            "Consider a hypothetical store planning to sell a kitchen organizer. Before choosing the offer, the brief needs competing stores, product positioning and questions about price and delivery. Minea's advertised product-and-shop research fits that starting point. A useful output would be a short list of stores with their offer, positioning and the unanswered sourcing questions beside each one.",
+            "Once the product is fixed, the next brief changes: collect relevant ad openings, demonstrations and objections, then write three original creative concepts. That is the ad-research task to evaluate in PiPiADS. Keep source links and explain why each example informs a concept. This is an illustrative workflow, not a completed account test or a claim that either tool predicts sales.",
+          ],
+        },
       ],
       exerciseTitle: "Run the same niche through both tools",
       exercise: [
@@ -655,6 +653,13 @@ export const p1Comparisons: Comparison[] = [
             "A third-party Kalodata listing is a different access product and cannot fill that official-price gap. Compare official plans first, then evaluate any shared-access offer separately for sessions, exports and continuity.",
           ],
         },
+        {
+          heading: "A sourced product still needs a sales-channel decision",
+          paragraphs: [
+            "Suppose you already have a supplier sample and must choose between an independent-store test and a TikTok Shop launch. For the store test, prepare a comparison of competing shop offers, product presentation and ad angles. Minea is the first candidate for assembling that store-and-ad brief. Supplier quality, delivery promises and margin calculations remain separate checks.",
+            "For the TikTok Shop route, the brief instead needs relevant marketplace products and a shortlist of creators in your selling country. Evaluate Kalodata for that task only after confirming country coverage and the selected plan. Record which creator details you can inspect and verify them on native profiles. This hypothetical example separates two purchase decisions; it does not assume either account has been tested or that all markets are supported.",
+          ],
+        },
       ],
       exerciseTitle: "Evaluate one product in your actual selling channel",
       exercise: [
@@ -774,6 +779,13 @@ export const p1Comparisons: Comparison[] = [
           paragraphs: [
             "PiPiADS also advertises TikTok Shop features. That overlap is a reason to compare the same product and country in both tools, not to declare one redundant. This article is based on public sources; no live-account accuracy benchmark was performed.",
             "PiPiADS' displayed monthly entry price is $49. Kalodata's accessible landing page does not show a paid amount, so obtain that quote before buying both. Two subscriptions only make sense if each supplies an output you will use repeatedly.",
+          ],
+        },
+        {
+          heading: "One product, two possible next actions",
+          paragraphs: [
+            "Imagine an existing TikTok Shop product with a planned promotion. If the immediate task is paid creative, use an available PiPiADS demo or authorized account to collect relevant ads and turn them into a brief: opening hook, demonstration, objection and original concept to test. Record the source and date for each example; the deliverable is a test plan, not a forecast of return on ad spend.",
+            "If the immediate task is creator outreach, evaluate Kalodata in a supported market and build a different sheet: creator profile, product relevance, examples to inspect and unanswered partnership questions. Confirm audience fit and contact details on the native platform before outreach. These are illustrative deliverables, not observed tool results. Buy both only when you repeatedly need both outputs; one busy launch alone does not establish that need.",
           ],
         },
       ],

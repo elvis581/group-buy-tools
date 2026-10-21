@@ -214,7 +214,7 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
               SpyBox alternatives →
             </Link>
             <Link
-              href="/spybox-review"
+              href="/providers/spybox"
               className="rounded-lg border border-slate-300 bg-white p-4 text-sm font-bold text-indigo-800 hover:border-indigo-500"
             >
               SpyBox review →

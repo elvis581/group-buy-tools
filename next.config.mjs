@@ -1,5 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/spybox-review",
+        destination: "/providers/spybox",
+        permanent: true,
+      },
+      {
+        source: "/spybox-vs-flikover",
+        destination: "/compare/spybox-vs-flikover",
+        permanent: true,
+      },
+      {
+        source: "/recently-verified",
+        destination: "/collections/recently-verified",
+        permanent: true,
+      },
+    ];
+  },
   // Configure `pageExtensions` to include markdown and MDX files
   // https://nextjs.org/docs/pages/building-your-application/configuring/mdx
   // pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],

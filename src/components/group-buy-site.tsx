@@ -126,7 +126,7 @@ export function GroupBuyHeader() {
         <a
           href={spyboxAffiliateUrl}
           target="_blank"
-          rel="sponsored noopener noreferrer"
+          rel="sponsored nofollow noopener noreferrer"
           className="button button-primary hidden sm:inline-flex"
         >
           Open SpyBox Offer <span aria-hidden="true">↗</span>
@@ -345,7 +345,7 @@ export function ToolCard({
               <a
                 href={tool.affiliateUrl}
                 target="_blank"
-                rel="sponsored noopener noreferrer"
+                rel="sponsored nofollow noopener noreferrer"
                 className="pointer-events-auto relative z-20 text-xs font-bold text-indigo-800"
               >
                 Open SpyBox Offer ↗
@@ -602,6 +602,7 @@ export function RelatedPages({
 
 export function ComparisonTable({
   rows,
+  label = "Comparison table",
   headers = [
     "Option",
     "Cost level",
@@ -610,14 +611,21 @@ export function ComparisonTable({
     "Privacy",
     "Best for",
   ],
-}: { rows: string[][]; headers?: string[] }) {
+}: { rows: string[][]; headers?: string[]; label?: string }) {
   return (
-    <div className="mt-5 overflow-x-auto rounded-xl border border-slate-200 bg-white">
+    <section
+      aria-label={label}
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: Keyboard users need to scroll the wide comparison table.
+      tabIndex={0}
+      className="mt-5 overflow-x-auto rounded-xl border border-slate-300 bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-700"
+    >
       <table className="w-full min-w-[680px] text-left text-sm">
+        <caption className="sr-only">{label}</caption>
         <thead className="bg-indigo-50">
           <tr>
             {headers.map((header) => (
               <th
+                scope="col"
                 key={header}
                 className="px-4 py-3 text-xs font-black uppercase tracking-wide text-indigo-900"
               >
@@ -629,8 +637,11 @@ export function ComparisonTable({
         <tbody className="divide-y divide-slate-200">
           {rows.map((row, index) => (
             <tr key={`${row[0]}-${index}`}>
-              {row.map((cell) => (
-                <td key={cell} className="px-4 py-4 align-top text-slate-700">
+              {row.map((cell, cellIndex) => (
+                <td
+                  key={`${cellIndex}-${cell}`}
+                  className="px-4 py-4 align-top text-slate-700"
+                >
                   {cell}
                 </td>
               ))}
@@ -638,7 +649,7 @@ export function ComparisonTable({
           ))}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 }
 

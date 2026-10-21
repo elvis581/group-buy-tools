@@ -3,6 +3,12 @@ import {
   type ComparisonArticle,
   p1Comparisons,
 } from "@/data/group-buy-comparisons";
+import {
+  evidenceDate,
+  spyboxFacts,
+  weeklySources,
+} from "@/data/group-buy-evidence";
+import { weeklyFlikoverComparison } from "@/data/group-buy-flikover-comparison";
 import { spyboxDirectory, toolMap } from "@/data/group-buy-tools";
 
 export type VerificationStatus =
@@ -58,6 +64,7 @@ export type Offer = {
 };
 
 export type DirectoryCategory = {
+  indexable?: boolean;
   slug: string;
   name: string;
   description: string;
@@ -111,16 +118,18 @@ export const providers: Provider[] = [
     name: "SpyBox",
     shortDescription:
       "A multi-tool access provider with a public directory covering several ecommerce, AI, ad research and content categories.",
-    publicToolCount: `${spyboxDirectory.toolCount} tools listed across ${spyboxDirectory.categories.length} categories`,
-    startingPrice: "€29.99/month",
+    publicToolCount: spyboxFacts.catalog,
+    startingPrice: spyboxFacts.price,
     billingCycle: "Monthly or annual offer shown publicly",
-    accessMethod: "Not publicly disclosed; verify before purchase",
-    refundPolicy: "Confirm the current checkout and refund terms",
-    supportChannels: ["Provider website"],
+    accessMethod: spyboxFacts.access,
+    refundPolicy: spyboxFacts.refunds,
+    supportChannels: ["Telegram support", "Contact@spybox.io"],
     officialUrl: "https://spybox.io/",
     affiliateUrl: spyboxAffiliateUrl,
     sources: [
       spyboxSource,
+      { ...weeklySources.spyboxTerms, sourceType: "policy" },
+      { ...weeklySources.spyboxHome, sourceType: "provider" },
       {
         label: "SpyBox price endpoint",
         url: toolMap.spybox.pricing.sourceUrl || "https://spybox.io/",
@@ -137,8 +146,12 @@ export const providers: Provider[] = [
     name: "Flikover",
     shortDescription:
       "A third-party software access platform whose current commercial details require confirmation before purchase.",
-    billingCycle: "Public page describes one-time payment for a specific month",
-    accessMethod: "Not publicly disclosed",
+    publicToolCount:
+      "35+ tools advertised; named plan inclusion requires confirmation",
+    billingCycle:
+      "One-time payment for a specific month; no automatic renewal advertised",
+    accessMethod:
+      "Cloud-based shared software access; some tools require Chrome",
     refundPolicy: "Not publicly disclosed",
     supportChannels: ["Provider website"],
     officialUrl: toolMap.flikover.officialUrl,
@@ -168,17 +181,17 @@ export const providers: Provider[] = [
       {
         label: "Toolsurf homepage",
         url: "https://www.toolsurf.com/",
-        checkedAt: "2026-10-16",
+        checkedAt: "2026-10-21",
         sourceType: "provider",
       },
       {
         label: "Toolsurf Minea product page",
         url: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
-        checkedAt: "2026-10-16",
+        checkedAt: "2026-10-21",
         sourceType: "provider",
       },
     ],
-    lastVerified: "2026-10-16",
+    lastVerified: "2026-10-21",
     published: true,
   },
   {
@@ -188,19 +201,23 @@ export const providers: Provider[] = [
       "A provider-reported multi-tool service advertising 100+ tools and dedicated sessions.",
     publicToolCount:
       "100+ tools and 230+ free AI tools advertised on the homepage",
-    startingPrice: "₹249/month advertised plans; individual tools from ₹49",
-    billingCycle: "Monthly plans advertised from ₹249 to ₹2,999",
+    startingPrice:
+      "Lite ₹249 / $5.50; Advance ₹549 / $10; AI ₹2,999 / $35 per month",
+    billingCycle:
+      "Monthly; INR for Indian UPI customers, USD prices displayed for international buyers",
     accessMethod:
-      "One-click dashboard and dedicated sessions are described by the provider",
+      "Shared master subscriptions with isolated member sessions claimed; single-member, same-city rules apply",
     refundPolicy:
-      "48-hour refund policy advertised; confirm eligibility at checkout",
+      "First purchase: request within 48 hours if included tools fail and support cannot resolve it; exclusions apply",
     supportChannels: ["24/7 live chat", "WhatsApp", "Telegram"],
     officialUrl: "https://toolzbuy.com/",
     sources: [
+      { ...weeklySources.toolzbuyTerms, sourceType: "policy" },
+      { ...weeklySources.toolzbuyRefunds, sourceType: "policy" },
       {
         label: "ToolzBuy homepage",
         url: "https://toolzbuy.com/",
-        checkedAt: "2026-09-22",
+        checkedAt: evidenceDate,
         sourceType: "provider",
       },
       {
@@ -210,7 +227,7 @@ export const providers: Provider[] = [
         sourceType: "official-product",
       },
     ],
-    lastVerified: "2026-09-22",
+    lastVerified: evidenceDate,
     published: true,
   },
 ];
@@ -222,8 +239,11 @@ export const offers: Offer[] = [
     providerSlug: "spybox",
     price: "€29.99/month or €249.99/year",
     billingCycle: "Monthly or annual",
-    accessMethod: "Provider listing; exact account model requires confirmation",
-    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    accessMethod: spyboxFacts.access,
+    limits: [
+      spyboxFacts.credits,
+      "Exports, concurrency and tool-specific access require confirmation; SBC overages can remain payable.",
+    ],
     availability: "provider-reported",
     sourceUrl: spyboxDirectory.sourceUrl,
     affiliateUrl: spyboxAffiliateUrl,
@@ -235,8 +255,11 @@ export const offers: Offer[] = [
     providerSlug: "spybox",
     price: "€29.99/month or €249.99/year",
     billingCycle: "Monthly or annual",
-    accessMethod: "Provider listing; exact account model requires confirmation",
-    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    accessMethod: spyboxFacts.access,
+    limits: [
+      spyboxFacts.credits,
+      "Exports, concurrency and tool-specific access require confirmation; SBC overages can remain payable.",
+    ],
     availability: "provider-reported",
     sourceUrl: spyboxDirectory.sourceUrl,
     affiliateUrl: spyboxAffiliateUrl,
@@ -248,8 +271,11 @@ export const offers: Offer[] = [
     providerSlug: "spybox",
     price: "€29.99/month or €249.99/year",
     billingCycle: "Monthly or annual",
-    accessMethod: "Provider listing; exact account model requires confirmation",
-    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    accessMethod: spyboxFacts.access,
+    limits: [
+      spyboxFacts.credits,
+      "Exports, concurrency and tool-specific access require confirmation; SBC overages can remain payable.",
+    ],
     availability: "provider-reported",
     sourceUrl: spyboxDirectory.sourceUrl,
     affiliateUrl: spyboxAffiliateUrl,
@@ -261,8 +287,11 @@ export const offers: Offer[] = [
     providerSlug: "spybox",
     price: "€29.99/month or €249.99/year",
     billingCycle: "Monthly or annual",
-    accessMethod: "Provider listing; exact account model requires confirmation",
-    limits: ["Device, session, export and usage limits not publicly confirmed"],
+    accessMethod: spyboxFacts.access,
+    limits: [
+      spyboxFacts.credits,
+      "Exports, concurrency and tool-specific access require confirmation; SBC overages can remain payable.",
+    ],
     availability: "provider-reported",
     sourceUrl: spyboxDirectory.sourceUrl,
     affiliateUrl: spyboxAffiliateUrl,
@@ -282,7 +311,7 @@ export const offers: Offer[] = [
     ],
     availability: "provider-reported",
     sourceUrl: "https://www.toolsurf.com/seo-tools/minea-group-buy/",
-    lastVerified: "2026-10-16",
+    lastVerified: evidenceDate,
   },
   {
     id: "toolsurf-kalodata",
@@ -369,6 +398,7 @@ export const categories: DirectoryCategory[] = [
   },
   {
     slug: "seo-tools",
+    indexable: false,
     name: "SEO Tools",
     description:
       "A growing category for SEO and marketplace research products. Current standalone coverage is limited and should not be inferred from a bundle listing.",
@@ -428,26 +458,7 @@ export const collections: Collection[] = [
 
 export const comparisons: Comparison[] = [
   ...p1Comparisons,
-  {
-    slug: "spybox-vs-flikover",
-    title: "SpyBox vs Flikover",
-    description:
-      "Compare two third-party tool access providers by library, pricing clarity, access rules, support and workflow fit.",
-    providerSlugs: ["spybox", "flikover"],
-    toolSlugs: ["spybox", "flikover"],
-    dimensions: [
-      "Public tool library",
-      "Pricing and billing",
-      "Access model and limits",
-      "Support and refunds",
-      "Workflow fit",
-    ],
-    verdict:
-      "There is no universal winner. Choose only after each provider documents the tools, access rules and support you need.",
-    lastUpdated: "2026-09-21",
-    published: true,
-    legacyPath: "/spybox-vs-flikover",
-  },
+  weeklyFlikoverComparison,
 ];
 
 export const providerMap = Object.fromEntries(

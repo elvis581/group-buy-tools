@@ -23,10 +23,10 @@ export default function Page() {
       <h2>Where commercial links appear</h2>
       <p>
         Commercial calls to action are labeled with wording such as “Open SpyBox
-        Offer” or “Claim 10% off.” Links to official pricing and product sources
-        are kept separate from sponsored destinations where possible. A source
-        link is evidence for a claim; an affiliate link is a way to visit a
-        commercial destination.
+        Offer” or “View SpyBox offer.” Links to official pricing and product
+        sources are kept separate from sponsored destinations where possible. A
+        source link is evidence for a claim; an affiliate link is a way to visit
+        a commercial destination.
       </p>
       <h2>What commissions do not mean</h2>
       <ul>

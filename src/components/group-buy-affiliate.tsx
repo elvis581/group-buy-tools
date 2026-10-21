@@ -2,6 +2,7 @@
 
 import { trackGroupBuyEvent } from "@/components/group-buy-analytics";
 import { spyboxAffiliateUrl } from "@/config/site";
+import { spyboxFacts } from "@/data/group-buy-evidence";
 import { spyboxDirectory, spyboxToolsUrl } from "@/data/group-buy-tools";
 import { formatDate } from "@/lib/group-buy";
 
@@ -45,13 +46,7 @@ export function AffiliateCTA({
                 : `SpyBox lists ${toolName} in its public tools directory, checked ${formatDate(spyboxDirectory.lastChecked)}. Verify the current access terms before purchase. `
               : `SpyBox advertises $8,000+ in monthly savings compared with individual subscriptions. Savings vary by the tools and plans you would otherwise buy; provider claim checked ${formatDate(spyboxDirectory.lastChecked)}. `}
           {!evidenceCheckedAt && (
-            <>
-              Use promo code{" "}
-              <code className="rounded border border-indigo-200 bg-white px-1.5 py-0.5 font-black text-indigo-900">
-                DCWSCX
-              </code>{" "}
-              at checkout for 10% off.
-            </>
+            <span className="mt-2 block">{spyboxFacts.coupon}</span>
           )}
         </p>
         <a
@@ -84,7 +79,7 @@ export function AffiliateCTA({
             ? isSpyBoxPage
               ? "Open SpyBox offer"
               : `Check ${toolName} availability`
-            : "Claim 10% off"}{" "}
+            : "View SpyBox offer"}{" "}
         <span className="ml-2" aria-hidden="true">
           ↗
         </span>

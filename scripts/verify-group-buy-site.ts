@@ -17,6 +17,7 @@ import {
   toolMap,
   tools,
 } from "../src/data/group-buy-tools";
+import { weeklyEditorialPages } from "../src/data/group-buy-weekly-pages";
 
 const trustPaths = ["/about", "/affiliate-disclosure", "/privacy", "/terms"];
 const errors: string[] = [];
@@ -46,6 +47,27 @@ const expectedPaths = new Set([
   ...trustPaths,
   ...publishedComparisons.map((item) => `/compare/${item.slug}`),
 ]);
+for (const category of publishedCategories) {
+  if (category.indexable === false)
+    expectedPaths.delete(`/categories/${category.slug}`);
+}
+if (sitemapPaths.includes("/categories/seo-tools"))
+  errors.push("Noindex SEO category must be absent from sitemap");
+for (const page of weeklyEditorialPages) {
+  if (!expectedPaths.has(page.path))
+    errors.push(`${page.path}: editorial page absent from sitemap`);
+  for (const link of [
+    ...page.related,
+    ...page.sections.flatMap((section) => section.links ?? []),
+  ]) {
+    if (!expectedPaths.has(link.href))
+      errors.push(`${page.path}: missing internal destination ${link.href}`);
+  }
+  if (page.table.rows.some((row) => row.length !== page.table.headers.length))
+    errors.push(`${page.path}: inconsistent table columns`);
+  if (new Set(page.faq.map((item) => item.question)).size !== page.faq.length)
+    errors.push(`${page.path}: duplicate FAQ`);
+}
 if (
   sitemapPaths.length !== new Set(sitemapPaths).size ||
   sitemapPaths.length !== expectedPaths.size
